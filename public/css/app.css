@@ -1,0 +1,251 @@
+html {
+    font-family: Inter, sans-serif !important;
+}
+
+.mobile-phone-screen {
+    max-width: 30rem;
+}
+
+.navbar-box-shadow {
+    box-shadow: 0px 1px 20px 0px #0000001A;
+}
+
+.general-box-shadow {
+    box-shadow: 0px 1px 4px 0px #0000001A;
+}
+
+.featured-auction-item-box-shadow {
+    box-shadow: 1px 1px 20px 0px #0000001A;
+}
+
+.backdrop__circle--bottom {
+    right: -10%
+}
+
+.backdrop__circle--top {
+    top: -14px;
+    right: -35%
+}
+
+.mobile-max-full {
+    max-width: calc(100% - 48px);
+}
+
+@media only screen and (min-width: 576px) {
+    .backdrop__circle--bottom {
+        right: -2%
+    }
+
+    .backdrop__circle--top {
+        right: -7%
+    }
+}
+
+.bg-background {
+    background-color: #f4f4f4;
+}
+
+.bg-green {
+    background-color: #159500;
+}
+
+.bg-peach-200 {
+    background-color: #e95400;
+}
+
+.bg-peach-100 {
+    background-color: #ffe4cb;
+}
+
+.bg-grayscale-100 {
+    background-color: #fff;
+}
+
+.bg-grayscale-200 {
+    background-color: #f0f0f0;
+}
+
+.bg-grayscale-300 {
+    background-color: #bfbfbf;
+}
+
+.bg-grayscale-400 {
+    background-color: #7d7d7d;
+}
+
+.bg-grayscale-500 {
+    background-color: #404040;
+}
+
+.bg-grayscale-600 {
+    background-color: #272727;
+}
+
+.text-grayscale-100 {
+    color: #fff;
+}
+
+.text-grayscale-200 {
+    color: #f0f0f0;
+}
+
+.text-grayscale-300 {
+    color: #bfbfbf;
+}
+
+.text-grayscale-400 {
+    color: #7d7d7d;
+}
+
+.text-grayscale-500 {
+    color: #404040;
+}
+
+.text-grayscale-600 {
+    color: #272727;
+}
+
+.bg-secondary-100 {
+    background-color: #fffae9;
+}
+
+.bg-secondary-200 {
+    background-color: #ffeca7;
+}
+
+.bg-secondary-300 {
+    background-color: #ffdd66;
+}
+
+.bg-secondary-400 {
+    background-color: #ffcf24;
+}
+
+.bg-secondary-500 {
+    background-color: #bb9305;
+}
+
+.bg-secondary-600 {
+    background-color: #775d00;
+}
+
+.text-secondary-100 {
+    color: #fffae9;
+}
+
+.text-secondary-200 {
+    color: #ffeca7;
+}
+
+.text-secondary-300 {
+    color: #ffdd66;
+}
+
+.text-secondary-400 {
+    color: #ffcf24;
+}
+
+.text-secondary-500 {
+    color: #bb9305;
+}
+
+.text-secondary-600 {
+    color: #775d00;
+}
+
+.bg-primary-100 {
+    background-color: #ffe5e7;
+}
+
+.bg-primary-200 {
+    background-color: #ffacb3;
+}
+
+.bg-primary-300 {
+    background-color: #ff737e;
+}
+
+.bg-primary-400 {
+    background-color: #ff394a;
+}
+
+.bg-primary-500 {
+    background-color: #e60013;
+}
+
+.bg-primary-600 {
+    background-color: #b3000f;
+}
+
+.bg-primary-700 {
+    background-color: #80000b;
+}
+
+.bg-primary-800 {
+    background-color: #4d0006;
+}
+
+.text-primary-100 {
+    color: #ffe5e7;
+}
+
+.text-primary-200 {
+    color: #ffacb3;
+}
+
+.text-primary-300 {
+    color: #ff737e;
+}
+
+.text-primary-400 {
+    color: #ff394a;
+}
+
+.text-primary-500 {
+    color: #e60013;
+}
+
+.text-primary-600 {
+    color: #b3000f;
+}
+
+.text-primary-700 {
+    color: #80000b;
+}
+
+.text-primary-800 {
+    color: #4d0006;
+}
+
+.outline-primary-100 {
+    outline-color: #ffe5e7;
+}
+
+.outline-primary-200 {
+    outline-color: #ffacb3;
+}
+
+.outline-primary-300 {
+    outline-color: #ff737e;
+}
+
+.outline-primary-400 {
+    outline-color: #ff394a;
+}
+
+.outline-primary-500 {
+    outline-color: #e60013;
+}
+
+.outline-primary-600 {
+    outline-color: #b3000f;
+}
+
+.outline-primary-700 {
+    outline-color: #80000b;
+}
+
+.outline-primary-800 {
+    outline-color: #4d0006;
+}
+
