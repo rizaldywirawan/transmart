@@ -23,6 +23,7 @@ setInterval(function() {
     remainingSeconds--
 
     if (remainingSeconds === 0) {
+        alert()
         window.location.reload()
     }
 
@@ -33,10 +34,9 @@ setInterval(function() {
 Echo.join(`auction-item.${auctionItemDetailId}`)
     .listen('AuctionBidderPriceSubmitted', (e) => {
 
-        console.log(e)
-
         auctionItemLatestPrice.textContent = `Rp. ${e.auctionBidder.formatted_bid_price}`
         auctionBidderLatestPrice.textContent = `Rp. ${e.auctionBidder.formatted_bid_price}`
+        auctionBidderLatestPrice.classList.remove('hidden')
         auctionBidderLatestName.textContent = `oleh ${e.auctionBidder.user.profile.name}`
     })
 

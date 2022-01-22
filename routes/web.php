@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AuctionItemBidController;
 use App\Http\Controllers\AuctionItemController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\UserLoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TransmartController;
 use App\Http\Controllers\UserLoginCodeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -19,15 +21,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('/');
 
 Route::get('/clear', function() {
     Auth::logout();
 });
 
 Route::middleware(['guest'])->group(function() {
+    Route::get('/', [TransmartController::class, 'index'])->name('/');
+
+    Route::post('/login', [LoginController::class, 'store']);
+
     Route::get('/users/{user}/login', [UserLoginController::class, 'index']);
     Route::get('/users/{user}/code', [UserLoginCodeController::class, 'index']);
     Route::post('/users/{user}/login', [UserLoginController::class, 'store']);
@@ -36,6 +39,7 @@ Route::middleware(['guest'])->group(function() {
 Route::middleware(['auth'])->group(function() {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+    Route::get('/auction-items', [AuctionItemController::class, 'index']);
     Route::get('/auction-items/{auction_item}', [AuctionItemController::class, 'show']);
 
     Route::post('/auction-items/{auction_item}/bids', [AuctionItemBidController::class, 'store']);

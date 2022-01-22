@@ -23,7 +23,8 @@ class AuctionFactory extends Factory
             'started_at' => now()->addHours(3),
             'ended_at' => now()->addhours(4),
             'start_price' => '1000000',
-            'bid_increment' => '50000'
+            'bid_increment' => '50000',
+            'live_time' => 900
         ];
     }
 }

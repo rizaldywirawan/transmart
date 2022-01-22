@@ -2,6 +2,7 @@
     "/js/app.js": "/js/app.js",
     "/js/pages/auction-items/show.js": "/js/pages/auction-items/show.js",
     "/js/pages/users/login/index.js": "/js/pages/users/login/index.js",
+    "/js/pages/index.js": "/js/pages/index.js",
     "/css/app.css": "/css/app.css",
     "/images/icons/icon-alert.svg": "/images/icons/icon-alert.svg",
     "/images/icons/icon-arrow_right.svg": "/images/icons/icon-arrow_right.svg",

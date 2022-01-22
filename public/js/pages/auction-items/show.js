@@ -26,14 +26,15 @@ setInterval(function () {
   remainingSeconds--;
 
   if (remainingSeconds === 0) {
+    alert();
     window.location.reload();
   }
 }, 1000); // Echo Section
 
 Echo.join("auction-item.".concat(auctionItemDetailId)).listen('AuctionBidderPriceSubmitted', function (e) {
-  console.log(e);
   auctionItemLatestPrice.textContent = "Rp. ".concat(e.auctionBidder.formatted_bid_price);
   auctionBidderLatestPrice.textContent = "Rp. ".concat(e.auctionBidder.formatted_bid_price);
+  auctionBidderLatestPrice.classList.remove('hidden');
   auctionBidderLatestName.textContent = "oleh ".concat(e.auctionBidder.user.profile.name);
 }); // Event Listener
 

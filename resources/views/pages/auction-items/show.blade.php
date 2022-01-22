@@ -146,9 +146,9 @@
             @if ($auctionItem->auction_bidders_count)
                 <h2 id="auction-bidder-latest-bid-price" class="text-xl font-bold text-primary-500">Rp. {{ $auctionItem->latestAuctionBidder->formatted_bid_price }}</h2>
                 <h2 id="auction-bidder-latest-bid-name" class="text-sm font-normal text-grayscale-400">oleh {{ $auctionItem->latestAuctionBidder->user->profile->name }}</h2>
-
             @else
-                <h1 class="text-base font-bold text-grayscale-400">Belum ada penawaran</h1>
+                <h2 id="auction-bidder-latest-bid-price" class="text-xl font-bold text-primary-500 hidden"></h2>
+                <h2 id="auction-bidder-latest-bid-name" class="text-sm font-normal text-grayscale-400">Belum Ada Penawaran</h2>
             @endif
         </div>
         <div

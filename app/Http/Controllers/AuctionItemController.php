@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Auction;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
 
 class AuctionItemController extends Controller
 {
+    public function index()
+    {
+        $auction = Auction::first();
+        return redirect("/auction-items/{$auction->id}");
+    }
+
     public function show($auctionItem)
     {
         $auctionItem->load('auctionBidders', 'auctionBidWinner.profile');
