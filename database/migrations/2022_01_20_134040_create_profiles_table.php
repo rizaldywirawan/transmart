@@ -17,8 +17,7 @@ class CreateProfilesTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('user_id');
             $table->string('name');
-            $table->uuid('company')->nullable();
-            $table->uuid('business_unit_id')->nullable();
+            $table->string('company')->nullable();
             $table->string('job_title')->nullable();
             $table->string('phone')->nullable();
             $table->string('email');

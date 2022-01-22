@@ -29,15 +29,17 @@
 
     @stack('styles')
 </head>
-<body class="bg-background mobile-phone-screen m-auto sm:w-3/4 sm:max-w-screen-xl px-6 sm:px-0 pt-72 pb-6">
-    @include('layouts.user.header')
+<body class="bg-background">
+    <main class="mobile-phone-screen m-auto sm:w-3/4 sm:max-w-screen-xl px-6 sm:px-0 pt-72 pb-60 sm:pb-6">
+        @include('layouts.user.header')
 
-    <div id="backdrop" style="background: linear-gradient(90deg, #FFECA7 0%, #E60013 50.52%, #80000B 100%);" class="h-52 w-screen absolute top-20 left-0 right-0 overflow-hidden">
-        <div class="absolute w-64 h-64 bg-secondary-400 opacity-20 rounded-full backdrop__circle--top"></div>
-        <div class="absolute w-64 h-64 bg-secondary-400 opacity-20 rounded-full top-1/2 backdrop__circle--bottom"></div>
-    </div>
+        <div id="backdrop" style="background: linear-gradient(90deg, #FFECA7 0%, #E60013 50.52%, #80000B 100%);" class="h-52 absolute top-20 left-0 right-0 overflow-hidden">
+            <div class="absolute w-64 h-64 bg-secondary-400 opacity-20 rounded-full backdrop__circle--top"></div>
+            <div class="absolute w-64 h-64 bg-secondary-400 opacity-20 rounded-full top-1/2 backdrop__circle--bottom"></div>
+        </div>
 
-    @yield('content')
+        @yield('content')
+    </main>
 
     @stack('scripts')
 </body>

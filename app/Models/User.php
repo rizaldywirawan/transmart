@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -13,19 +14,26 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $table = 'users';
-    protected $keyType = 'uuid';
-    public $incrementing = false;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'username',
         'password',
+        'created_by',
+        'deleted_by',
+        'updated_by',
+        'created_at',
+        'deleted_at',
+        'updated_at'
     ];
+
+    protected $keyType = 'string';
+    public $incrementing = false;
+    public $timestamps = false;
 
     /**
      * The attributes that should be hidden for serialization.
@@ -34,16 +42,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
     ];
 
     public static function boot()
@@ -57,5 +55,25 @@ class User extends Authenticatable
     public function profile()
     {
         return $this->hasOne(Profile::class);
+    }
+
+    public function eventUser()
+    {
+        return $this->hasOne(EventUser::class);
+    }
+
+    public function event()
+    {
+        return $this->hasOne(Event::class);
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
+
+    public function ticketExchanges()
+    {
+        return $this->hasMany(TicketExchange::class);
     }
 }

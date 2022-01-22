@@ -24,7 +24,6 @@ class CreateAuctionAttachmentsTable extends Migration
             $table->uuid('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
-
         });
     }
 

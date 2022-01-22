@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Auction;
 use App\Models\Profile;
 use App\Models\User;
+use Database\Factories\AuctionFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,5 +26,6 @@ class DatabaseSeeder extends Seeder
                 ->create();
         }
 
+        Auction::factory(10)->create();
     }
 }

@@ -5,21 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Ramsey\Uuid\Uuid;
 
-class Profile extends Model
+class Attendance extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
     protected $fillable = [
         'id',
+        'event_id',
         'user_id',
-        'name',
-        'company',
-        'job_title',
-        'phone',
-        'email',
+        'location_type_id',
         'created_by',
         'deleted_by',
         'updated_by',
@@ -32,16 +28,17 @@ class Profile extends Model
     public $incrementing = false;
     public $timestamps = false;
 
-    public static function boot()
+    public function event()
     {
-        parent::boot();
-        self::creating(function ($model) {
-            $model->id = (string) Uuid::uuid4();
-        });
+        return $this->belongsTo(Event::class);
     }
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function locationType()
+    {
+        return $this->belongsTo(LocationType::class);
     }
 }

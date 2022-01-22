@@ -61,3 +61,6 @@ if (!params.code) {
     })
 }
 
+authenticationButton.addEventListener('click', function(el) {
+    window.location.reload()
+})

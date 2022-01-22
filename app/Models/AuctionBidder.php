@@ -7,30 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Ramsey\Uuid\Uuid;
 
-class Profile extends Model
+class AuctionBidder extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = [
-        'id',
-        'user_id',
-        'name',
-        'company',
-        'job_title',
-        'phone',
-        'email',
-        'created_by',
-        'deleted_by',
-        'updated_by',
-        'created_at',
-        'deleted_at',
-        'updated_at'
-    ];
-
     protected $keyType = 'string';
     public $incrementing = false;
     public $timestamps = false;
+
+    public $appends = ['formatted_bid_price'];
 
     public static function boot()
     {
@@ -40,8 +26,13 @@ class Profile extends Model
         });
     }
 
+    public function getFormattedBidPriceAttribute()
+    {
+        return number_format($this->bid_price, 0, ',', '.');
+    }
+
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

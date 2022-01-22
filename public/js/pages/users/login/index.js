@@ -54,5 +54,9 @@ if (!params.code) {
     authenticationIcon.classList.remove('animate-spin');
   });
 }
+
+authenticationButton.addEventListener('click', function (el) {
+  window.location.reload();
+});
 /******/ })()
 ;

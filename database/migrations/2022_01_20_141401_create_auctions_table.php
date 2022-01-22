@@ -19,10 +19,10 @@ class CreateAuctionsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->timestamp('started_at');
-            $table->timestamp('ended_At');
             $table->float('start_price');
+            $table->time('live_time', 0)->nullable();
             $table->uuid('won_by')->nullable();
-            $table->float('highest_price');
+            $table->float('highest_price')->nullable();
             $table->float('bid_increment');
             $table->uuid('created_by')->nullable();
             $table->uuid('updated_by')->nullable();

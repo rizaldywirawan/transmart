@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('/');
 
 Route::get('/clear', function() {
     Auth::logout();
@@ -33,7 +33,11 @@ Route::middleware(['guest'])->group(function() {
     Route::post('/users/{user}/login', [UserLoginController::class, 'store']);
 });
 
-Route::get('/auction-items/{auction_item}', [AuctionItemController::class, 'index']);
-Route::post('/auction-items/{auction_item}/bids', [AuctionItemBidController::class, 'store']);
+Route::middleware(['auth'])->group(function() {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/home', [HomeController::class, 'index']);
+    Route::get('/auction-items/{auction_item}', [AuctionItemController::class, 'show']);
+
+    Route::post('/auction-items/{auction_item}/bids', [AuctionItemBidController::class, 'store']);
+    Route::get('/auction-items/{auction_item}/bids', [AuctionItemBidController::class, 'index']);
+});
