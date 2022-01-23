@@ -54,7 +54,7 @@
     @stack('styles')
 </head>
 <body class="bg-background">
-    <main class="mobile-phone-screen m-auto sm:w-3/4 sm:max-w-screen-xl px-6 sm:px-0 pt-72">
+    <main class="m-auto sm:w-3/4 sm:max-w-screen-xl px-6 sm:px-0 pt-72">
         @include('layouts.user.header')
 
         <div id="backdrop" style="background: linear-gradient(90deg, #FFD5F6 0%, #C548AC 50.52%, #5F0A4E 100%);" class="h-52 absolute top-20 left-0 right-0 overflow-hidden">

@@ -11,8 +11,11 @@ class AuctionItemController extends Controller
 {
     public function index()
     {
-        $auction = Auction::first();
-        return redirect("/auction-items/{$auction->id}");
+        $auctionItems = Auction::with(['auctionBidWinner', 'auctionBidders'])
+        ->withCount(['auctionBidders'])
+        ->orderBy('started_at', 'ASC')->get();
+
+        return view('pages.auction-items.index', compact('auctionItems'));
     }
 
     public function show($auctionItem)

@@ -7,7 +7,7 @@
 <div id="auction-item-detail" data-id={{ $auctionItems[0]->id }}
     class="featured-auction-item-box-shadow p-6 rounded-2xl bg-white flex sm:flex-row flex-col -mt-24 sm:-mt-20 mb-6 sm:max-w-screen-xl w-full z-10 relative mb-12">
     <div class="flex justify-between sm:flex-row flex-col">
-        <div class="flex sm:mr-6 sm:flex-row flex-col mb-6 sm:mb-0">
+        <div class="flex sm:mr-6 sm:flex-row flex-col mb-6 sm:mb-0 sm:w-4/5">
             <img src="{{ asset('images/demo/iphone.jpg') }}" alt="Auction Item Image"
                 class="h-60 w-60 bg-background rounded-2xl mb-3 object-cover sm:mr-6 mr-0">
             <div id="auction-item-detail__description" class="flex-grow">
@@ -55,7 +55,7 @@
                     {{ $auctionItems[0]->description }}
                 </p>
                 <div class="flex max-w-max items-center mb-4 bg-primary-100 rounded-lg p-2 outline outline-1 outline-primary-700 outline-dashed">
-                    <span class="h-5 w-5 flex items-center justify-center">
+                    <span class="h-5 w-5 flex items-center justify-center mr-3">
                         <img src="{{ asset('images/icons/icon-calendar.svg') }}" alt="Auction Item Bid Time"
                             class="w-full h-full">
                     </span>
@@ -69,9 +69,9 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col">
+        <div class="flex flex-col sm:w-1/5">
             <div id="auction-item__remaining-time" data-remaining-seconds="{{ $auctionItems[0]['bidding_status']['remaining-time-in-seconds'] }}"
-                class="general-box-shadow p-3 rounded-xl w-max mb-4 h-min">
+                class="general-box-shadow p-3 rounded-xl w-full mb-4 h-min">
 
                 @if ($auctionItems[0]['bidding_status']['status'] !== "over")
 

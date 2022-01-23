@@ -1,5 +1,5 @@
 <footer class="mt-10 sm:mb-0 py-4 flex flex-col sm:flex-row items-center justify-between" style="background: linear-gradient(90deg, #F87BDF 0%, #92227C 50.52%, #5F0A4E 100%);">
-    <div class="mobile-phone-screen m-auto sm:w-3/4 sm:max-w-screen-xl flex items-center justify-between flex-col sm:flex-row">
+    <div class="m-auto sm:w-3/4 sm:max-w-screen-xl flex items-center justify-between flex-col sm:flex-row">
         <div class="flex items-center flex-col mb-4 sm:mb-0 sm:flex-row">
             <h6 class="mr-0 mb-3 sm:mr-6 sm:mb-0 text-sm font-normal text-grayscale-100">Didukung oleh:</h6>
             <div class="company-logo-container flex items-center">

@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    public function index(Request $request)
+    {
+        $url = config('app.url');
+        return view('pages.login.index', compact('url'));
+    }
+
     public function store(Request $request)
     {
         $code = 200;

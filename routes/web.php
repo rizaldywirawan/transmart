@@ -29,10 +29,11 @@ Route::get('/clear', function() {
 Route::middleware(['guest'])->group(function() {
     Route::get('/', [TransmartController::class, 'index'])->name('/');
 
+    Route::get('/login', [LoginController::class, 'index']);
     Route::post('/login', [LoginController::class, 'store']);
 
-    Route::get('/users/{user}/login', [UserLoginController::class, 'index']);
     Route::get('/users/{user}/code', [UserLoginCodeController::class, 'index']);
+    Route::get('/users/{user}/login', [UserLoginController::class, 'index']);
     Route::post('/users/{user}/login', [UserLoginController::class, 'store']);
 });
 

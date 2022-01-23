@@ -13,6 +13,6 @@ class HomeController extends Controller
         ->withCount(['auctionBidders'])
         ->orderBy('started_at', 'ASC')->get();
 
-        return view('pages.auction-items.index', compact('auctionItems'));
+        return view('pages.home.index');
     }
 }
