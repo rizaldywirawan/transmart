@@ -24,7 +24,7 @@ if (!params.code) {
         }
     }).then(response => {
 
-        authenticationIcon.setAttribute('src', '/images/icons/illustration-complete.svg')
+        authenticationIcon.setAttribute('src', '/images/icons/icon-success.svg')
         authenticationStatus.textContent = response.data.message.text
 
         let refreshPageCount = 5;

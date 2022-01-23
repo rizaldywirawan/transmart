@@ -35,7 +35,7 @@ class Auction extends Model
     public $incrementing = false;
     public $timestamps = false;
 
-    public $appends = ['formatted_started_at', 'formatted_start_price', 'formatted_bid_increment'];
+    public $appends = ['formatted_started_at', 'formatted_start_price', 'formatted_bid_increment', 'bidding_status'];
 
     public static function boot()
     {
@@ -90,5 +90,31 @@ class Auction extends Model
         return number_format($this->bid_increment, 0, ',', '.');
     }
 
+    public function getBiddingStatusAttribute()
+    {
+        $biddingTime = Carbon::parse($this->started_at)->addSeconds($this->live_time);
 
+        $biddingStatus = "live";
+
+        if (now()->greaterThan($this->started_at) && now()->lessThan($biddingTime)) {
+            $biddingStatus = "live";
+            $remainingTime = now()->diff(Carbon::parse($this->started_at)->addSeconds($this->live_time));
+            $remainingTimeInSeconds = now()->diffInSeconds(Carbon::parse($this->started_at)->addSeconds($this->live_time));
+
+        } else if(now()->greaterThan($this->started_at) && now()->greaterThan($biddingTime)) {
+            $biddingStatus = "over";
+            $remainingTimeInSeconds = 0;
+            $remainingTime = 0;
+        } else {
+            $biddingStatus = "upcoming";
+            $remainingTime = now()->diff($this->started_at);
+            $remainingTimeInSeconds = now()->diffInSeconds($this->started_at);
+        }
+
+        return [
+            'status' => $biddingStatus,
+            'remaining-time' => $remainingTime,
+            'remaining-time-in-seconds' => $remainingTimeInSeconds
+        ];
+    }
 }

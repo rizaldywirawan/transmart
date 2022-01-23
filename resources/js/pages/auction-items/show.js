@@ -8,6 +8,8 @@ let remainingTimeHoursElement = document.querySelector('#auction-item__remaining
 let remainingTimeMinutesElement = document.querySelector('#auction-item__remaining-time__minutes')
 let remainingTimeSecondsElement = document.querySelector('#auction-item__remaining-time__seconds')
 let bidSubmissionButton = document.querySelector('#auction-item-bid-submission__button')
+let emptyBidHistory = document.querySelector('#auction-item-no-bid-yet')
+let bidEntryContainer = document.querySelector('#auction-item-bid-historical__entries')
 
 // to be rewritten
 let auctionItemLatestPrice = document.querySelector('#auction-item-latest-price')
@@ -15,16 +17,17 @@ let auctionBidderLatestPrice = document.querySelector('#auction-bidder-latest-bi
 let auctionBidderLatestName = document.querySelector('#auction-bidder-latest-bid-name')
 
 // set the remaining time in separated format
-setInterval(function() {
-    let remainingTime = convertSecondsToRemainingTime(remainingSeconds)
-    remainingTimeHoursElement.textContent = remainingTime.hours
-    remainingTimeMinutesElement.textContent = remainingTime.minutes
-    remainingTimeSecondsElement.textContent = remainingTime.seconds
-    remainingSeconds--
+let remainingTimeIntervalId = setInterval(function() {
 
     if (remainingSeconds === 0) {
-        alert()
+        clearInterval(remainingTimeIntervalId)
         window.location.reload()
+    } else {
+        let remainingTime = convertSecondsToRemainingTime(remainingSeconds)
+        remainingTimeHoursElement.textContent = remainingTime.hours
+        remainingTimeMinutesElement.textContent = remainingTime.minutes
+        remainingTimeSecondsElement.textContent = remainingTime.seconds
+        remainingSeconds--
     }
 
 }, 1000)
@@ -38,6 +41,26 @@ Echo.join(`auction-item.${auctionItemDetailId}`)
         auctionBidderLatestPrice.textContent = `Rp. ${e.auctionBidder.formatted_bid_price}`
         auctionBidderLatestPrice.classList.remove('hidden')
         auctionBidderLatestName.textContent = `oleh ${e.auctionBidder.user.profile.name}`
+
+        if (emptyBidHistory !== null) {
+            emptyBidHistory.remove()
+        }
+
+        let bidEntry = document.createElement('div')
+        bidEntry.innerHTML = `
+            <div class="general-box-shadow p-3 flex items-center rounded-xl mb-3">
+                <span class="h-8 w-8 sm:h-5 sm:w-5 mr-3">
+                    <img src="/images/icons/icon-money.svg" alt="Auction Item Bid Record"
+                        class="h-full">
+                </span>
+                <h6 class="text-sm font-normal">${e.auctionBidder.user.profile.name} melakukan penawaran sebesar <span
+                        class="text-primary-500 text-base font-bold">Rp. ${e.auctionBidder.formatted_bid_price}</span>
+                </h6>
+            </div>
+        `
+
+        bidEntryContainer.prepend(bidEntry)
+
     })
 
 
@@ -55,19 +78,21 @@ bidSubmissionButton.addEventListener('click', function(el) {
     }).then(response => {
         Swal.fire({
             // title: error.response.data.message.title,
+            heightAuto: false,
             text: response.data.message.text,
             imageWidth: "7rem",
-            imageUrl: '/images/icons/illustration-complete.svg',
-            confirmButtonColor: '#E60013',
+            imageUrl: '/images/icons/icon-success.svg',
+            confirmButtonColor: '#F87BDF',
             confirmButtonText: 'Semoga Beruntung'
         })
     }).catch(error => {
         Swal.fire({
             // title: error.response.data.message.title,
+            heightAuto: false,
             text: error.response.data.message.text,
             imageWidth: "5rem",
             imageUrl: '/images/icons/icon-fail.png',
-            confirmButtonColor: '#E60013',
+            confirmButtonColor: '#F87BDF',
             confirmButtonText: 'Coba Kembali'
         })
     })

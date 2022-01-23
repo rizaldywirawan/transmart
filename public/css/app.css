@@ -31,6 +31,13 @@ html {
     max-width: calc(100% - 48px);
 }
 
+@media only screen and (max-width: 576px) {
+    .bid-column-box-shadow {
+        box-shadow: -1px 0px 4px 0px #00000026;
+    }
+
+}
+
 @media only screen and (min-width: 576px) {
     .backdrop__circle--bottom {
         right: -2%
@@ -43,10 +50,6 @@ html {
 
 .bg-background {
     background-color: #f4f4f4;
-}
-
-.bg-green-100 {
-    background-color: #DCFFD3;
 }
 
 .bg-peach-200 {
@@ -153,7 +156,7 @@ html {
     color: #775d00;
 }
 
-.bg-primary-100 {
+/* .bg-primary-100 {
     background-color: #ffe5e7;
 }
 
@@ -183,9 +186,9 @@ html {
 
 .bg-primary-800 {
     background-color: #4d0006;
-}
+} */
 
-.text-primary-100 {
+/* .text-primary-100 {
     color: #ffe5e7;
 }
 
@@ -215,9 +218,9 @@ html {
 
 .text-primary-800 {
     color: #4d0006;
-}
+} */
 
-.outline-primary-100 {
+/* .outline-primary-100 {
     outline-color: #ffe5e7;
 }
 
@@ -247,7 +250,7 @@ html {
 
 .outline-primary-800 {
     outline-color: #4d0006;
-}
+} */
 
 .outline-grayscale-100 {
     outline-color: #fff;
@@ -297,7 +300,109 @@ html {
     border-color: #272727;
 }
 
-.text-green-200 {
-    color: #159500;
+
+/* Revision, Pallet Color */
+.bg-primary-100 {
+    background-color: #FFF2FC;
+}
+
+.bg-primary-200 {
+    background-color: #FFD5F6;
+}
+
+.bg-primary-300 {
+    background-color: #FFB8F1;
+}
+
+.bg-primary-400 {
+    background-color: #FF9BEB;
+}
+
+.bg-primary-500 {
+    background-color: #F87BDF;
+}
+
+.bg-primary-600 {
+    background-color: #C548AC;
+}
+
+.bg-primary-700 {
+    background-color: #92227C;
+}
+
+.bg-primary-800 {
+    background-color: #5F0A4E;
+}
+
+.text-primary-100 {
+    color: #FFF2FC;
+}
+
+.text-primary-200 {
+    color: #FFD5F6;
+}
+
+.text-primary-300 {
+    color: #FFB8F1;
+}
+
+.text-primary-400 {
+    color: #FF9BEB;
+}
+
+.text-primary-500 {
+    color: #F87BDF;
+}
+
+.text-primary-600 {
+    color: #C548AC;
+}
+
+.text-primary-700 {
+    color: #92227C;
+}
+
+.text-primary-800 {
+    color: #5F0A4E;
+}
+
+.outline-primary-100 {
+    outline-color: #FFF2FC;
+}
+
+.outline-primary-200 {
+    outline-color: #FFD5F6;
+}
+
+.outline-primary-300 {
+    outline-color: #FFB8F1;
+}
+
+.outline-primary-400 {
+    outline-color: #FF9BEB;
+}
+
+.outline-primary-500 {
+    outline-color: #F87BDF;
+}
+
+.outline-primary-600 {
+    outline-color: #C548AC;
+}
+
+.outline-primary-700 {
+    outline-color: #92227C;
+}
+
+.outline-primary-800 {
+    outline-color: #5F0A4E;
+}
+
+.text-peach-200 {
+    color: #e95400;
+}
+
+.text-peach-100 {
+    color: #ffe4cb;
 }
 

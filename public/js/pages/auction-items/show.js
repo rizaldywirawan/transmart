@@ -12,22 +12,24 @@ var remainingSeconds = remainingSecondsElement.dataset.remainingSeconds;
 var remainingTimeHoursElement = document.querySelector('#auction-item__remaining-time__hours');
 var remainingTimeMinutesElement = document.querySelector('#auction-item__remaining-time__minutes');
 var remainingTimeSecondsElement = document.querySelector('#auction-item__remaining-time__seconds');
-var bidSubmissionButton = document.querySelector('#auction-item-bid-submission__button'); // to be rewritten
+var bidSubmissionButton = document.querySelector('#auction-item-bid-submission__button');
+var emptyBidHistory = document.querySelector('#auction-item-no-bid-yet');
+var bidEntryContainer = document.querySelector('#auction-item-bid-historical__entries'); // to be rewritten
 
 var auctionItemLatestPrice = document.querySelector('#auction-item-latest-price');
 var auctionBidderLatestPrice = document.querySelector('#auction-bidder-latest-bid-price');
 var auctionBidderLatestName = document.querySelector('#auction-bidder-latest-bid-name'); // set the remaining time in separated format
 
-setInterval(function () {
-  var remainingTime = convertSecondsToRemainingTime(remainingSeconds);
-  remainingTimeHoursElement.textContent = remainingTime.hours;
-  remainingTimeMinutesElement.textContent = remainingTime.minutes;
-  remainingTimeSecondsElement.textContent = remainingTime.seconds;
-  remainingSeconds--;
-
+var remainingTimeIntervalId = setInterval(function () {
   if (remainingSeconds === 0) {
-    alert();
+    clearInterval(remainingTimeIntervalId);
     window.location.reload();
+  } else {
+    var remainingTime = convertSecondsToRemainingTime(remainingSeconds);
+    remainingTimeHoursElement.textContent = remainingTime.hours;
+    remainingTimeMinutesElement.textContent = remainingTime.minutes;
+    remainingTimeSecondsElement.textContent = remainingTime.seconds;
+    remainingSeconds--;
   }
 }, 1000); // Echo Section
 
@@ -36,6 +38,14 @@ Echo.join("auction-item.".concat(auctionItemDetailId)).listen('AuctionBidderPric
   auctionBidderLatestPrice.textContent = "Rp. ".concat(e.auctionBidder.formatted_bid_price);
   auctionBidderLatestPrice.classList.remove('hidden');
   auctionBidderLatestName.textContent = "oleh ".concat(e.auctionBidder.user.profile.name);
+
+  if (emptyBidHistory !== null) {
+    emptyBidHistory.remove();
+  }
+
+  var bidEntry = document.createElement('div');
+  bidEntry.innerHTML = "\n            <div class=\"general-box-shadow p-3 flex items-center rounded-xl mb-3\">\n                <span class=\"h-8 w-8 sm:h-5 sm:w-5 mr-3\">\n                    <img src=\"/images/icons/icon-money.svg\" alt=\"Auction Item Bid Record\"\n                        class=\"h-full\">\n                </span>\n                <h6 class=\"text-sm font-normal\">".concat(e.auctionBidder.user.profile.name, " melakukan penawaran sebesar <span\n                        class=\"text-primary-500 text-base font-bold\">Rp. ").concat(e.auctionBidder.formatted_bid_price, "</span>\n                </h6>\n            </div>\n        ");
+  bidEntryContainer.prepend(bidEntry);
 }); // Event Listener
 
 bidSubmissionButton.addEventListener('click', function (el) {
@@ -49,19 +59,21 @@ bidSubmissionButton.addEventListener('click', function (el) {
   }).then(function (response) {
     Swal.fire({
       // title: error.response.data.message.title,
+      heightAuto: false,
       text: response.data.message.text,
       imageWidth: "7rem",
-      imageUrl: '/images/icons/illustration-complete.svg',
-      confirmButtonColor: '#E60013',
+      imageUrl: '/images/icons/icon-success.svg',
+      confirmButtonColor: '#F87BDF',
       confirmButtonText: 'Semoga Beruntung'
     });
   })["catch"](function (error) {
     Swal.fire({
       // title: error.response.data.message.title,
+      heightAuto: false,
       text: error.response.data.message.text,
       imageWidth: "5rem",
       imageUrl: '/images/icons/icon-fail.png',
-      confirmButtonColor: '#E60013',
+      confirmButtonColor: '#F87BDF',
       confirmButtonText: 'Coba Kembali'
     });
   });

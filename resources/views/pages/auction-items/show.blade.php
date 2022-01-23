@@ -16,25 +16,25 @@
     </div>
     <div id="auction-item-detail__description" class="flex-grow">
         <div id="auctio-item-detail__description__title" class="sm:flex items-center mb-3">
-            <h1 id="auction-item-detail__description__title__name" class="text-2xl font-bold mr-0 sm:mr-3">
+            <h1 id="auction-item-detail__description__title__name" class="text-lg sm:text-2xl font-bold mr-0 sm:mr-3 mb-3 sm:mb-0">
                 {{ $auctionItem->name }}</h1>
 
             @php
 
             if ($biddingStatus === "live") {
-            $bidStatusText = 'Berlangsung';
-            $bidStatusBackgroundColor = 'bg-primary-100';
-            $bidStatusColor = "text-primary-500";
+                $bidStatusText = 'Berlangsung';
+                $bidStatusBackgroundColor = 'bg-primary-100';
+                $bidStatusColor = "text-primary-500";
             } elseif ($biddingStatus === "upcoming") {
-            $bidStatusText = 'Akan Datang';
-            $bidStatusBackgroundColor = 'bg-green';
-            $bidStatusIcon = "";
-            $bidStatusColor = "text-green-200";
+                $bidStatusText = 'Akan Datang';
+                $bidStatusBackgroundColor = 'bg-peach-100';
+                $bidStatusIcon = "";
+                $bidStatusColor = "text-peach-200";
             } else {
-            $bidStatusText = 'Selesai';
-            $bidStatusBackgroundColor = 'bg-grayscale-500';
-            $bidStatusIcon = "";
-            $bidStatusColor = "text-white";
+                $bidStatusText = 'Selesai';
+                $bidStatusBackgroundColor = 'bg-green-100';
+                $bidStatusIcon = "";
+                $bidStatusColor = "text-green-600";
             }
             @endphp
 
@@ -47,17 +47,17 @@
 
                 @if ($biddingStatus === "live")
                 <img id="auctio-item-detail__description__title__status__icon"
-                    src="{{ asset('images/icons/icon-live.svg') }}" alt="Bid Live Now!" class="ml-3">
+                    src="{{ asset('images/icons/icon-fire.svg') }}" alt="Bid Live Now!" class="ml-3">
                 @endif
             </div>
         </div>
-        <div class="text-base font-light text-grayscale-400 mb-1">
+        <div class="text-md sm:text-base font-light text-grayscale-400 mb-1">
             Deskripsi
         </div>
-        <p id="auction-item-detail__description__narration" class="text-lg font-normal text-grayscale-500 mb-3">
+        <p id="auction-item-detail__description__narration" class="text-sm sm:text-md font-normal text-grayscale-500 mb-3">
             {{ $auctionItem->description }}
         </p>
-        <div class="flex w-full items-center mb-4">
+        <div class="flex max-w-max items-center mb-4 bg-primary-100 rounded-lg p-2 outline outline-1 outline-primary-700 outline-dashed">
             <span class="h-5 w-5 flex items-center justify-center mr-3">
                 <img src="{{ asset('images/icons/icon-calendar.svg') }}" alt="Auction Item Bid Time"
                     class="w-full h-full">
@@ -71,7 +71,7 @@
 
                 <div class="flex items-center mb-1">
                     <span class="h-4 w-4 flex items-center justify-center mr-1.5">
-                        <img src="{{ asset('images/icons/icon-timer.svg') }}" alt="Auction Remaining Time"
+                        <img src="{{ asset('images/icons/icon-clock.svg') }}" alt="Auction Remaining Time"
                             class="w-full h-full">
                     </span>
                     <span class="text-sm font-bold text-grayscale-500">Waktu Tersisa</span>
@@ -118,7 +118,10 @@
                     <img src="{{ asset('images/icons/icon-crown.svg') }}" alt="Auction Winner" class="h-6 w-6">
                 </div>
                 @else
-                <h1 class="text-base font-bold text-grayscale-600 mr-3">Belum ditentukan</h1>
+                <div class="flex items-center justify-center">
+                    <h1 class="text-base font-bold text-grayscale-400 mr-3">Belum ditentukan</h1>
+                    <img src="{{ asset('images/icons/icon-sad.svg') }}" alt="No Winner Yet" class="h-6 w-6">
+                </div>
                 @endif
             @endif
         </div>
@@ -160,44 +163,62 @@
 
     @php
         $displayStatus = "hidden";
+        $length = "lg:w-1/2";
 
-        if($auctionItem->auction_bidders_count) {
+        if ($auctionItem->auction_bidders_count) {
             $displayStatus = "block";
+        }
+
+        if ($biddingStatus !== "live") {
+            $length = "lg:w-full";
         }
 
     @endphp
 
     {{-- Auction Item Bid Historical and Submission --}}
     <div id="auction-item-bid-historical-and-submission" class="flex flex-col sm:flex-row">
-        <div id="auction-item-bid-historical" class="w-sceen lg:w-1/2 mr-0 sm:mr-6 mt-6 {{ $displayStatus }}">
+        <div id="auction-item-bid-historical" class="w-sceen {{ $length }} mr-0 sm:mr-6 mt-6">
             <div class="flex justify-between items-center mb-3">
                 <h3 class="text-base font-bold">Riwayat Penawaran</h3>
                 {{-- <span class="text-sm font-light text-primary-500 text-right">Lihat Penawaran</span> --}}
             </div>
             <div id="auction-item-bid-historical__entries">
 
-                @foreach ($auctionItem->auctionBidders as $bidder)
-                    <div class="general-box-shadow px-3 py-5 flex items-center rounded-xl mb-6">
-                        <span class="h-8 w-8 sm:h-5 sm:w-5 mr-3">
-                            <img src="{{ asset('images/icons/icon-bid.svg') }}" alt="Auction Item Bid Record"
-                                class="h-full">
-                        </span>
-                        <h6 class="text-sm font-normal">{{ $bidder->user->profile->name }} melakukan penawaran sebesar <span
-                                class="text-primary-500 text-base font-bold">Rp. {{ $bidder->formatted_bid_price }}</span>
-                        </h6>
+                @if ($auctionItem->auction_bidders_count)
+                    @foreach ($auctionItem->auctionBidders as $bidder)
+                        <div class="general-box-shadow p-3 flex items-center rounded-xl mb-3">
+                            <span class="h-8 w-8 sm:h-5 sm:w-5 mr-3">
+                                <img src="{{ asset('images/icons/icon-money.svg') }}" alt="Auction Item Bid Record"
+                                    class="h-full">
+                            </span>
+                            <h6 class="text-sm font-normal">{{ $bidder->user->profile->name }} melakukan penawaran sebesar <span
+                                    class="text-primary-500 text-base font-bold">Rp. {{ $bidder->formatted_bid_price }}</span>
+                            </h6>
+                        </div>
+                    @endforeach
+                @else
+                    <div id="auction-item-no-bid-yet" class="bg-white general-box-shadow w-full justify-center items-center flex flex-col py-6 rounded-xl">
+                        <img src="{{ asset('images/icons/icon-empty.svg') }}" alt="There's No Bid for This Item" class="max-w-xs mb-6">
+                        <h6 class="text-md font-light text-grayscale-400">Belum ada penawaran harga.</h6>
                     </div>
-                @endforeach
-
+                @endif
             </div>
         </div>
 
         @if ($biddingStatus === "live")
         <div id="auction-item-bid-submission"
-            class="w-full lg:w-1/2 fixed sm:static left-0 bottom-0 sm:left-auto sm:bottom-auto bg-white p-6 sm:p-0 mt-6">
+            class="h-64 w-full lg:w-1/2 fixed sm:static left-0 bottom-0 sm:left-auto sm:bottom-auto bg-white p-6 sm:p-0 mt-0 sm:mt-6 bid-column-box-shadow">
             <h3 class="text-base font-bold mb-3">Nominal Penawaran</h3>
             <input type="text" name="bid-price" id="auction-item-bid-submission__bid-price"
                 class="px-4 py-3 text-sm font-normal rounded-lg w-full border border-grayscale-300 mb-3"
                 placeholder="Rp. 300.000">
+            <div class="flex overflow-x-scroll mb-3">
+                <button class="p-2 rounded bg-primary-400 text-white text-sm font-bold shrink-0 mr-3">Rp. 20.000</button>
+                <button class="p-2 rounded bg-primary-400 text-white text-sm font-bold shrink-0 mr-3">Rp. 20.000</button>
+                <button class="p-2 rounded bg-primary-400 text-white text-sm font-bold shrink-0 mr-3">Rp. 20.000</button>
+                <button class="p-2 rounded bg-primary-400 text-white text-sm font-bold shrink-0 mr-3">Rp. 20.000</button>
+                <button class="p-2 rounded bg-primary-400 text-white text-sm font-bold shrink-0 mr-3">Rp. 20.000</button>
+            </div>
             <button id="auction-item-bid-submission__button" class="py-4 px-12 rounded-xl bg-primary-500 text-lg font-bold text-white w-full sm:w-auto">Ajukan
                 Penawaran</button>
         </div>

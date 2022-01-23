@@ -26,7 +26,7 @@ if (!params.code) {
       code: params.code
     }
   }).then(function (response) {
-    authenticationIcon.setAttribute('src', '/images/icons/illustration-complete.svg');
+    authenticationIcon.setAttribute('src', '/images/icons/icon-success.svg');
     authenticationStatus.textContent = response.data.message.text;
     var refreshPageCount = 5;
     setInterval(function () {
