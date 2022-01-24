@@ -1,5 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
+    "/js/pages/auction-items/index.js": "/js/pages/auction-items/index.js",
     "/js/pages/auction-items/show.js": "/js/pages/auction-items/show.js",
     "/js/pages/users/login/index.js": "/js/pages/users/login/index.js",
     "/js/pages/index.js": "/js/pages/index.js",
@@ -60,5 +61,6 @@
     "/images/favicons/mstile-150x150.png": "/images/favicons/mstile-150x150.png",
     "/images/favicons/mstile-310x150.png": "/images/favicons/mstile-310x150.png",
     "/images/favicons/mstile-310x310.png": "/images/favicons/mstile-310x310.png",
-    "/images/favicons/mstile-70x70.png": "/images/favicons/mstile-70x70.png"
+    "/images/favicons/mstile-70x70.png": "/images/favicons/mstile-70x70.png",
+    "/images/icons/icon-auction.svg": "/images/icons/icon-auction.svg"
 }

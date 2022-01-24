@@ -15,6 +15,7 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         //
     ])
+    .js('resources/js/pages/auction-items/index.js', 'public/js/pages/auction-items')
     .js('resources/js/pages/auction-items/show.js', 'public/js/pages/auction-items')
     .js('resources/js/pages/users/login/index.js', 'public/js/pages/users/login')
     .js('resources/js/pages/index.js', 'public/js/pages')

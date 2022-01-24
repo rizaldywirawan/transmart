@@ -127,7 +127,7 @@
         </div>
         <div>
             <h6 class="text-sm font-light text-grayscale-400">Harga terakhir</h6>
-            <h3 id="auction-item-latest-price" class="text-lg font-bold text-primary-500">Rp.
+            <h3 id="auction-item-latest-price" class="text-lg font-bold text-primary-500">Rp
                 {{ $auctionItem->auction_bidders_count === 0 ? $auctionItem->formatted_start_price : $auctionItem->latestAuctionBidder->formatted_bid_price }}
             </h3>
         </div>
@@ -140,14 +140,14 @@
         <div
             class="rounded-xl outline outline-primary-200 p-6 flex justify-center items-center flex-col flex-grow mr-6 mb-3 sm:mb-0 outline-1 w-full text-center">
             <h3 class="text-base font-light text-grayscale-500">Penawaran Awal</h3>
-            <h2 class="text-xl font-bold text-primary-500">Rp. {{ $auctionItem->formatted_start_price }}</h2>
+            <h2 class="text-xl font-bold text-primary-500">Rp {{ $auctionItem->formatted_start_price }}</h2>
         </div>
         <div
             class="rounded-xl outline outline-primary-200 p-6 flex justify-center items-center flex-col flex-grow mr-6 mb-3 sm:mb-0 outline-1 w-full text-center">
             <h3 class="text-base font-light text-grayscale-500 mb-2">Penawaran Terakhir</h3>
 
             @if ($auctionItem->auction_bidders_count)
-                <h2 id="auction-bidder-latest-bid-price" class="text-xl font-bold text-primary-500">Rp. {{ $auctionItem->latestAuctionBidder->formatted_bid_price }}</h2>
+                <h2 id="auction-bidder-latest-bid-price" class="text-xl font-bold text-primary-500">Rp {{ $auctionItem->latestAuctionBidder->formatted_bid_price }}</h2>
                 <h2 id="auction-bidder-latest-bid-name" class="text-sm font-normal text-grayscale-400">oleh {{ $auctionItem->latestAuctionBidder->user->profile->name }}</h2>
             @else
                 <h2 id="auction-bidder-latest-bid-price" class="text-xl font-bold text-primary-500 hidden"></h2>
@@ -157,7 +157,7 @@
         <div
             class="rounded-xl outline outline-primary-200 p-6 flex justify-center items-center flex-col flex-grow sm:mb-0 outline-1 w-full text-center">
             <h3 class="text-base font-light text-grayscale-500">Kelipatan Penawaran</h3>
-            <h2 class="text-xl font-bold text-primary-500">Rp. {{ $auctionItem->formatted_bid_increment }}</h2>
+            <h2 class="text-xl font-bold text-primary-500">Rp {{ $auctionItem->formatted_bid_increment }}</h2>
         </div>
     </div>
 
@@ -192,7 +192,7 @@
                                     class="h-full">
                             </span>
                             <h6 class="text-sm font-normal">{{ $bidder->user->profile->name }} melakukan penawaran sebesar <span
-                                    class="text-primary-500 text-base font-bold">Rp. {{ $bidder->formatted_bid_price }}</span>
+                                    class="text-primary-500 text-base font-bold">Rp {{ $bidder->formatted_bid_price }}</span>
                             </h6>
                         </div>
                     @endforeach
@@ -209,15 +209,12 @@
         <div id="auction-item-bid-submission"
             class="h-64 w-full lg:w-1/2 fixed sm:static left-0 bottom-0 sm:left-auto sm:bottom-auto bg-white p-6 sm:p-0 mt-0 sm:mt-6 bid-column-box-shadow">
             <h3 class="text-base font-bold mb-3">Nominal Penawaran</h3>
-            <input type="text" name="bid-price" id="auction-item-bid-submission__bid-price"
-                class="px-4 py-3 text-sm font-normal rounded-lg w-full border border-grayscale-300 mb-3"
-                placeholder="Rp. 300.000">
+            <input type="hidden" name="bid-price" id="auction-item-bid-submission__bid-price" placeholder="0" value="0" disabled>
+            <div id="auction-item-bid-submission__bid-price-placeholder" class="px-4 py-3 text-sm font-normal rounded-lg w-full border border-grayscale-300 mb-3">Rp 0</div>
             <div class="flex overflow-x-scroll mb-3">
-                <button class="p-2 rounded bg-primary-400 text-white text-sm font-bold shrink-0 mr-3">Rp. 20.000</button>
-                <button class="p-2 rounded bg-primary-400 text-white text-sm font-bold shrink-0 mr-3">Rp. 20.000</button>
-                <button class="p-2 rounded bg-primary-400 text-white text-sm font-bold shrink-0 mr-3">Rp. 20.000</button>
-                <button class="p-2 rounded bg-primary-400 text-white text-sm font-bold shrink-0 mr-3">Rp. 20.000</button>
-                <button class="p-2 rounded bg-primary-400 text-white text-sm font-bold shrink-0 mr-3">Rp. 20.000</button>
+                @foreach ($auctionBidValues as $bidValue)
+                    <button class="bid-value p-2 rounded bg-primary-400 text-white text-sm font-bold shrink-0 mr-3" data-value={{ $bidValue->value }}>Rp {{ $bidValue->formatted_bid_value }}</button>
+                @endforeach
             </div>
             <button id="auction-item-bid-submission__button" class="py-4 px-12 rounded-xl bg-primary-500 text-lg font-bold text-white w-full sm:w-auto">Ajukan
                 Penawaran</button>

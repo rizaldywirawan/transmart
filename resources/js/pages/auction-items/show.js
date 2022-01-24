@@ -16,6 +16,9 @@ let auctionItemLatestPrice = document.querySelector('#auction-item-latest-price'
 let auctionBidderLatestPrice = document.querySelector('#auction-bidder-latest-bid-price')
 let auctionBidderLatestName = document.querySelector('#auction-bidder-latest-bid-name')
 
+let auctionBidPrice = document.querySelector('#auction-item-bid-submission__bid-price')
+let auctionBidPricePlaceholder = document.querySelector('#auction-item-bid-submission__bid-price-placeholder')
+
 // set the remaining time in separated format
 if (remainingSeconds !== 0) {
     let remainingTimeIntervalId = setInterval(function() {
@@ -39,8 +42,8 @@ if (remainingSeconds !== 0) {
 Echo.join(`auction-item.${auctionItemDetailId}`)
     .listen('AuctionBidderPriceSubmitted', (e) => {
 
-        auctionItemLatestPrice.textContent = `Rp. ${e.auctionBidder.formatted_bid_price}`
-        auctionBidderLatestPrice.textContent = `Rp. ${e.auctionBidder.formatted_bid_price}`
+        auctionItemLatestPrice.textContent = `Rp ${e.auctionBidder.formatted_bid_price}`
+        auctionBidderLatestPrice.textContent = `Rp ${e.auctionBidder.formatted_bid_price}`
         auctionBidderLatestPrice.classList.remove('hidden')
         auctionBidderLatestName.textContent = `oleh ${e.auctionBidder.user.profile.name}`
 
@@ -56,7 +59,7 @@ Echo.join(`auction-item.${auctionItemDetailId}`)
                         class="h-full">
                 </span>
                 <h6 class="text-sm font-normal">${e.auctionBidder.user.profile.name} melakukan penawaran sebesar <span
-                        class="text-primary-500 text-base font-bold">Rp. ${e.auctionBidder.formatted_bid_price}</span>
+                        class="text-primary-500 text-base font-bold">Rp ${e.auctionBidder.formatted_bid_price}</span>
                 </h6>
             </div>
         `
@@ -112,3 +115,10 @@ function convertSecondsToRemainingTime(value) {
 
     return { hours, minutes, seconds }
 }
+
+document.body.addEventListener('click', function(el) {
+    if (el.target.classList.contains('bid-value')) {
+        auctionBidPrice.value = parseInt(auctionBidPrice.value) + parseInt(el.target.dataset.value)
+        auctionBidPricePlaceholder.textContent = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(auctionBidPrice.value)
+    }
+})

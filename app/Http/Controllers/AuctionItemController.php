@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auction;
+use App\Models\AuctionBidValue;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
@@ -13,15 +14,44 @@ class AuctionItemController extends Controller
     {
         $auctionItems = Auction::with(['auctionBidWinner', 'auctionBidders'])
         ->withCount(['auctionBidders'])
-        ->orderBy('started_at', 'ASC')->get();
+        ->orderBy('started_at', 'ASC')
+        ->get();
 
-        return view('pages.auction-items.index', compact('auctionItems'));
+        $sortedAuctionItems = [];
+
+        $sortedActiveAuctionItems = [];
+        $sortedInactiveAuctionItems = [];
+        $sortedUpcomingAuctionItems = [];
+
+
+        foreach ($auctionItems as $auctionItem) {
+            $biddingTime = Carbon::parse($auctionItem->started_at)->addSeconds($auctionItem->live_time);
+
+            // live condition
+            if (now()->greaterThan($auctionItem->started_at) && now()->lessThan($biddingTime)) {
+                array_push($sortedActiveAuctionItems, $auctionItem);
+
+            // over condition
+            } else if(now()->greaterThan($auctionItem->started_at) && now()->greaterThan($biddingTime)) {
+                array_push($sortedInactiveAuctionItems, $auctionItem);
+
+                // upcoming condition
+            } else {
+                array_push($sortedUpcomingAuctionItems, $auctionItem);
+            }
+        }
+
+        $sortedAuctionItems = array_merge($sortedActiveAuctionItems, $sortedUpcomingAuctionItems, $sortedInactiveAuctionItems);
+
+        return view('pages.auction-items.index', compact('sortedAuctionItems'));
     }
 
     public function show($auctionItem)
     {
         $auctionItem->load('auctionBidders', 'auctionBidWinner.profile');
         $auctionItem->loadCount('auctionBidders');
+
+        $auctionBidValues = AuctionBidValue::where('event_id', 'ad22aa5c-03cf-40ae-a589-ca1a0454532d')->orderBy('value', 'ASC')->get();
 
         $biddingTime = Carbon::parse($auctionItem->started_at)->addSeconds($auctionItem->live_time);
 
@@ -42,6 +72,6 @@ class AuctionItemController extends Controller
             $remainingTimeInSeconds = now()->diffInSeconds($auctionItem->started_at);
         }
 
-        return view('pages.auction-items.show', compact('auctionItem', 'biddingStatus', 'remainingTime', 'remainingTimeInSeconds'));
+        return view('pages.auction-items.show', compact('auctionItem', 'biddingStatus', 'remainingTime', 'remainingTimeInSeconds', 'auctionBidValues'));
     }
 }

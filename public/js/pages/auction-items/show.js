@@ -18,7 +18,9 @@ var bidEntryContainer = document.querySelector('#auction-item-bid-historical__en
 
 var auctionItemLatestPrice = document.querySelector('#auction-item-latest-price');
 var auctionBidderLatestPrice = document.querySelector('#auction-bidder-latest-bid-price');
-var auctionBidderLatestName = document.querySelector('#auction-bidder-latest-bid-name'); // set the remaining time in separated format
+var auctionBidderLatestName = document.querySelector('#auction-bidder-latest-bid-name');
+var auctionBidPrice = document.querySelector('#auction-item-bid-submission__bid-price');
+var auctionBidPricePlaceholder = document.querySelector('#auction-item-bid-submission__bid-price-placeholder'); // set the remaining time in separated format
 
 if (remainingSeconds !== 0) {
   var remainingTimeIntervalId = setInterval(function () {
@@ -37,8 +39,8 @@ if (remainingSeconds !== 0) {
 
 
 Echo.join("auction-item.".concat(auctionItemDetailId)).listen('AuctionBidderPriceSubmitted', function (e) {
-  auctionItemLatestPrice.textContent = "Rp. ".concat(e.auctionBidder.formatted_bid_price);
-  auctionBidderLatestPrice.textContent = "Rp. ".concat(e.auctionBidder.formatted_bid_price);
+  auctionItemLatestPrice.textContent = "Rp ".concat(e.auctionBidder.formatted_bid_price);
+  auctionBidderLatestPrice.textContent = "Rp ".concat(e.auctionBidder.formatted_bid_price);
   auctionBidderLatestPrice.classList.remove('hidden');
   auctionBidderLatestName.textContent = "oleh ".concat(e.auctionBidder.user.profile.name);
 
@@ -47,7 +49,7 @@ Echo.join("auction-item.".concat(auctionItemDetailId)).listen('AuctionBidderPric
   }
 
   var bidEntry = document.createElement('div');
-  bidEntry.innerHTML = "\n            <div class=\"general-box-shadow p-3 flex items-center rounded-xl mb-3\">\n                <span class=\"h-8 w-8 sm:h-5 sm:w-5 mr-3\">\n                    <img src=\"/images/icons/icon-money.svg\" alt=\"Auction Item Bid Record\"\n                        class=\"h-full\">\n                </span>\n                <h6 class=\"text-sm font-normal\">".concat(e.auctionBidder.user.profile.name, " melakukan penawaran sebesar <span\n                        class=\"text-primary-500 text-base font-bold\">Rp. ").concat(e.auctionBidder.formatted_bid_price, "</span>\n                </h6>\n            </div>\n        ");
+  bidEntry.innerHTML = "\n            <div class=\"general-box-shadow p-3 flex items-center rounded-xl mb-3\">\n                <span class=\"h-8 w-8 sm:h-5 sm:w-5 mr-3\">\n                    <img src=\"/images/icons/icon-money.svg\" alt=\"Auction Item Bid Record\"\n                        class=\"h-full\">\n                </span>\n                <h6 class=\"text-sm font-normal\">".concat(e.auctionBidder.user.profile.name, " melakukan penawaran sebesar <span\n                        class=\"text-primary-500 text-base font-bold\">Rp ").concat(e.auctionBidder.formatted_bid_price, "</span>\n                </h6>\n            </div>\n        ");
   bidEntryContainer.prepend(bidEntry);
 }); // Event Listener
 
@@ -100,5 +102,15 @@ function convertSecondsToRemainingTime(value) {
     seconds: seconds
   };
 }
+
+document.body.addEventListener('click', function (el) {
+  if (el.target.classList.contains('bid-value')) {
+    auctionBidPrice.value = parseInt(auctionBidPrice.value) + parseInt(el.target.dataset.value);
+    auctionBidPricePlaceholder.textContent = new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR'
+    }).format(auctionBidPrice.value);
+  }
+});
 /******/ })()
 ;
