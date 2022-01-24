@@ -45,4 +45,6 @@ Route::middleware(['auth'])->group(function() {
 
     Route::post('/auction-items/{auction_item}/bids', [AuctionItemBidController::class, 'store']);
     Route::get('/auction-items/{auction_item}/bids', [AuctionItemBidController::class, 'index']);
+
+    Route::post('/logout', [LoginController::class, 'destroy']);
 });

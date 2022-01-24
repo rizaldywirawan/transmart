@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Ramsey\Uuid\Uuid;
 
 class Attendance extends Model
 {
@@ -28,6 +29,14 @@ class Attendance extends Model
     public $incrementing = false;
     public $timestamps = false;
 
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->id = (string) Uuid::uuid4();
+        });
+    }
+
     public function event()
     {
         return $this->belongsTo(Event::class);
@@ -37,6 +46,7 @@ class Attendance extends Model
     {
         return $this->belongsTo(User::class);
     }
+
     public function locationType()
     {
         return $this->belongsTo(LocationType::class);

@@ -1,4 +1,4 @@
-@extends('layouts.user.master');
+@extends('layouts.user.master')
 
 @section('title', 'Beranda')
 

@@ -8,6 +8,8 @@
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     {{-- Favicon --}}
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{ asset('images/favicons/apple-touch-icon-57x57.png') }}" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('images/favicons/apple-touch-icon-114x114.png') }}" />
@@ -66,6 +68,22 @@
     </main>
 
     @include('layouts.user.footer')
+
+    <script>
+        let profile = document.querySelector('#profile')
+        let profileMenu = document.querySelector('#profile-menu')
+
+        document.body.addEventListener('click', function(el) {
+            if (el.target.closest('#profile')) {
+                profileMenu.classList.toggle('hidden')
+            } else {
+                if (!profileMenu.classList.contains('hidden')) {
+                    profileMenu.classList.add('hidden')
+                }
+            }
+        })
+
+    </script>
 
     @stack('scripts')
 </body>

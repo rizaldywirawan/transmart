@@ -29,9 +29,9 @@
 
                         } else {
                             $bidStatusText = 'Selesai';
-                            $bidStatusBackgroundColor = 'bg-grayscale-500';
+                            $bidStatusBackgroundColor = 'bg-green-100';
                             $bidStatusIcon = "";
-                            $bidStatusColor = "text-white";
+                            $bidStatusColor = "text-green-600";
                         }
                     @endphp
 
@@ -112,19 +112,19 @@
                     <h3 class="text-sm font-normal text-grayscale-400">Pemenang</h3>
 
                     @if ($auctionItems[0]->won_by !== null)
-                    <div class="flex items-center justify-center">
+                    <div class="flex items-center">
                         <h1 class="text-base font-bold text-grayscale-600 mr-3">
                             {{ $auctionItems[0]->auctionBidWinner->profile->name }}</h1>
                         <img src="{{ asset('images/icons/icon-crown.svg') }}" alt="Auction Winner" class="h-6 w-6">
                     </div>
                     @elseif ($auctionItems[0]->latestAuctionBidder !== null)
-                    <div class="flex items-center justify-center">
+                    <div class="flex items-center">
                         <h1 class="text-base font-bold text-grayscale-600 mr-3">
                             {{ $auctionItems[0]->latestAuctionBidder->user->profile->name }}</h1>
                         <img src="{{ asset('images/icons/icon-crown.svg') }}" alt="Auction Winner" class="h-6 w-6">
                     </div>
                     @else
-                    <div class="flex items-center justify-center">
+                    <div class="flex items-center">
                         <h1 class="text-base font-bold text-grayscale-400 mr-3">Belum ditentukan</h1>
                         <img src="{{ asset('images/icons/icon-sad.svg') }}" alt="No Winner Yet" class="h-6 w-6">
                     </div>
@@ -137,7 +137,7 @@
 </div>
 
 <div id="auction-item-list">
-    <h3 class="text-base font-bold text-grayscale-700 mb-3">Daftar Barang</h3>
+    <h3 class="text-2xl font-bold text-grayscale-700 mb-3">Daftar Barang</h3>
     <div class="auction-item-container sm:gap-6 sm:grid-cols-4 grid gap-y-6 grid-cols-1 ">
 
         @foreach ($auctionItems as $auctionItem)

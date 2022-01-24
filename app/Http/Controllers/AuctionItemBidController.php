@@ -27,7 +27,7 @@ class AuctionItemBidController extends Controller
 
         if ($auctionItem->latestAuctionBidder === null) {
 
-            if ($auctionItem->start_price > $bidPriceInput) {
+            if ($auctionItem->start_price >= $bidPriceInput) {
                 $code = 422;
 
                 $response = [
@@ -41,7 +41,7 @@ class AuctionItemBidController extends Controller
             }
 
         } else {
-            if($auctionItem->latestAuctionBidder->bid_price > $bidPriceInput) {
+            if($auctionItem->latestAuctionBidder->bid_price >= $bidPriceInput) {
 
                 $code = 422;
 
@@ -65,6 +65,7 @@ class AuctionItemBidController extends Controller
             $auctionBidder->user_id = Auth::id();
             $auctionBidder->bid_price = $bidPriceInput;
             $auctionBidder->created_by = Auth::id();
+            $auctionBidder->created_at = now();
             $auctionBidder->save();
 
             $auctionBidder->load('user.profile');

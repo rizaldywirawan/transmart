@@ -5,12 +5,19 @@ var __webpack_exports__ = {};
   \*************************************/
 var codeInput = document.querySelector('#code');
 var loginButton = document.querySelector('#login-button');
+var params = new Proxy(new URLSearchParams(window.location.search), {
+  get: function get(searchParams, prop) {
+    return searchParams.get(prop);
+  }
+});
+console.log(params.source);
 loginButton.addEventListener('click', function (el) {
   axios({
     method: 'post',
     url: '/login',
     data: {
-      code: codeInput.value
+      code: codeInput.value,
+      source: params.source ? params.source : null
     }
   }).then(function (response) {
     Swal.fire({

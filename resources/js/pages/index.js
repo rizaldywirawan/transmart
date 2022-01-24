@@ -1,12 +1,19 @@
 let codeInput = document.querySelector('#code')
 let loginButton = document.querySelector('#login-button')
 
+const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+});
+
+console.log(params.source)
+
 loginButton.addEventListener('click', function(el) {
     axios({
         method: 'post',
         url: '/login',
         data: {
-            code: codeInput.value
+            code: codeInput.value,
+            source: params.source ? params.source : null
         }
     }).then(response => {
         Swal.fire({

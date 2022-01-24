@@ -3,20 +3,27 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Attendance;
+use App\Models\LocationType;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
     public function index(Request $request)
     {
-        $url = config('app.url');
+        $locationType = LocationType::where('name', 'Physical')->first();
+
+        $url = config('app.url') . "?source=523c9f80-7a68-4f9a-85f1-f1597d65a513";
         return view('pages.login.index', compact('url'));
     }
 
     public function store(Request $request)
     {
+        $source = $request->input('source');
+
         $code = 200;
         $response = [
             'message' => [
@@ -54,11 +61,52 @@ class LoginController extends Controller
                     ];
                 } else {
 
+                    // Initiation Data
+                    $event = 'ad22aa5c-03cf-40ae-a589-ca1a0454532d';
+                    $onlineLocation = 'dd00a679-f0f0-45ae-9ab3-60baabcbbd67';
+
+                    $siteLocation = "523c9f80-7a68-4f9a-85f1-f1597d65a513";
+
+                    if (!empty($source)) {
+
+                        if ($source !== $siteLocation) {
+                            $code = 404;
+                            $response = [
+                                'message' => [
+                                    'title' => 'Kode lokasi tidak ditemukan.',
+                                    'text' => 'Mohon maaf, kami tidak dapat memeriksa lokasi Anda.'
+                                ]
+                            ];
+
+                            return response($response, $code);
+                        }
+
+                        $locationType = $siteLocation;
+
+
+                    } else {
+                        $locationType = $onlineLocation;
+                    }
+
+                    DB::beginTransaction();
+
                     // authenticated! (200)
+                    $attendance = new Attendance();
+                    $attendance->event_id = $event;
+                    $attendance->user_id = $user->id;
+                    $attendance->location_type_id = $locationType;
+                    $attendance->created_at = now();
+                    $attendance->created_by = $user->id;
+                    $attendance->save();
+
+                    DB::commit();
+
                     Auth::login($user);
                 }
 
             } catch (\Throwable $th) {
+
+                DB::rollBack();
 
                 // something went wrong (500)
                 $code = 500;
@@ -74,5 +122,12 @@ class LoginController extends Controller
 
         return response($response, $code);
 
+    }
+
+    public function destroy()
+    {
+        Auth::logout();
+
+        return redirect('/');
     }
 }

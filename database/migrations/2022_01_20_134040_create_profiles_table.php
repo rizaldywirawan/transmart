@@ -17,10 +17,11 @@ class CreateProfilesTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('user_id');
             $table->string('name');
-            $table->string('company')->nullable();
+            $table->uuid('company_id')->nullable();
+            $table->uuid('business_unit_id')->nullable();
             $table->string('job_title')->nullable();
             $table->string('phone')->nullable();
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->uuid('created_by')->nullable();
             $table->uuid('updated_by')->nullable();
             $table->uuid('deleted_by')->nullable();
