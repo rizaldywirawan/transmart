@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\AttendanceSigned;
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\LocationType;
@@ -91,15 +92,42 @@ class LoginController extends Controller
                     DB::beginTransaction();
 
                     // authenticated! (200)
-                    $attendance = new Attendance();
-                    $attendance->event_id = $event;
-                    $attendance->user_id = $user->id;
-                    $attendance->location_type_id = $locationType;
-                    $attendance->created_at = now();
-                    $attendance->created_by = $user->id;
-                    $attendance->save();
+                    $checkAttendance = Attendance::whereBetween('created_at', [now()->isoFormat('YYYY-MM-DD 00:00:00.000'), now()->isoFormat('YYYY-MM-DD 23:59:59.000')])
+                    ->where('user_id', $user->id)
+                    ->count();
+
+                    if (!$checkAttendance) {
+                        $attendance = new Attendance();
+                        $attendance->event_id = $event;
+                        $attendance->user_id = $user->id;
+                        $attendance->location_type_id = $locationType;
+                        $attendance->created_at = now();
+                        $attendance->created_by = $user->id;
+                        $attendance->save();
+
+                        $user->load('latestAttendance.locationType', 'profile');
+
+                        $attendanceToday = Attendance::whereBetween('created_at', [now()->isoFormat('YYYY-MM-DD 00:00:00.000'), now()->isoFormat('YYYY-MM-DD 23:59:00.000')])->count();
+                        $attendanceByWebsite = Attendance::where('location_type_id', 'dd00a679-f0f0-45ae-9ab3-60baabcbbd67')->count();
+                        $attendanceByQRCode = Attendance::where('location_type_id', '523c9f80-7a68-4f9a-85f1-f1597d65a513')->count();
+
+                        $totalUser = User::whereHas('roles', function($query) {
+                            $query->where('name', 'participant');
+                        })
+                        ->count();
+
+                        $attendanceData = [
+                            'attendance-today' => $attendanceToday,
+                            'attendance-online' => $attendanceByWebsite,
+                            'attendance-offline' => $attendanceByQRCode,
+                            'total-participant' => $totalUser
+                        ];
+
+                        AttendanceSigned::dispatch($user, $attendanceData);
+                    }
 
                     DB::commit();
+
 
                     Auth::login($user);
                 }

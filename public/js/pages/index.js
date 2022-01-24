@@ -10,7 +10,6 @@ var params = new Proxy(new URLSearchParams(window.location.search), {
     return searchParams.get(prop);
   }
 });
-console.log(params.source);
 loginButton.addEventListener('click', function (el) {
   axios({
     method: 'post',

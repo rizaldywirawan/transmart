@@ -28,4 +28,9 @@ class AuctionAttachment extends Model
     protected $keyType = 'string';
     public $incrementing = false;
     public $timestamps = false;
+
+    public function auction()
+    {
+        return $this->belongsTo(Auction::class);
+    }
 }

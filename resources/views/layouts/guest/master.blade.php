@@ -31,9 +31,9 @@
     <meta name="msapplication-square310x310logo" content="{{ asset('images/favicons/mstile-310x310.png') }}" />
 
     {{-- Google Font --}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    {{-- <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet"> --}}
 
     {{-- Tailwind CSS --}}
     <script src="https://cdn.tailwindcss.com"></script>

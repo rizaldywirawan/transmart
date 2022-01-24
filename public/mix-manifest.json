@@ -4,9 +4,18 @@
     "/js/pages/auction-items/show.js": "/js/pages/auction-items/show.js",
     "/js/pages/users/login/index.js": "/js/pages/users/login/index.js",
     "/js/pages/index.js": "/js/pages/index.js",
+    "/js/pages/auctions/index.js": "/js/pages/auctions/index.js",
+    "/js/pages/auctions/show.js": "/js/pages/auctions/show.js",
+    "/js/pages/auctions/edit.js": "/js/pages/auctions/edit.js",
+    "/js/pages/attendances/index.js": "/js/pages/attendances/index.js",
+    "/js/pages/users/index.js": "/js/pages/users/index.js",
+    "/js/pages/dashboard/index.js": "/js/pages/dashboard/index.js",
+    "/js/pages/events/create.js": "/js/pages/events/create.js",
+    "/js/pages/events/index.js": "/js/pages/events/index.js",
     "/css/app.css": "/css/app.css",
     "/images/icons/icon-alert.svg": "/images/icons/icon-alert.svg",
     "/images/icons/icon-arrow_right.svg": "/images/icons/icon-arrow_right.svg",
+    "/images/icons/icon-auction.svg": "/images/icons/icon-auction.svg",
     "/images/icons/icon-bid.svg": "/images/icons/icon-bid.svg",
     "/images/icons/icon-calendar.svg": "/images/icons/icon-calendar.svg",
     "/images/icons/icon-check_done.svg": "/images/icons/icon-check_done.svg",
@@ -61,6 +70,5 @@
     "/images/favicons/mstile-150x150.png": "/images/favicons/mstile-150x150.png",
     "/images/favicons/mstile-310x150.png": "/images/favicons/mstile-310x150.png",
     "/images/favicons/mstile-310x310.png": "/images/favicons/mstile-310x310.png",
-    "/images/favicons/mstile-70x70.png": "/images/favicons/mstile-70x70.png",
-    "/images/icons/icon-auction.svg": "/images/icons/icon-auction.svg"
+    "/images/favicons/mstile-70x70.png": "/images/favicons/mstile-70x70.png"
 }

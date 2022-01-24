@@ -1,3 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+
 html {
     font-family: Inter, sans-serif !important;
 }
@@ -404,4 +410,120 @@ html {
 
 .text-peach-100 {
     color: #ffe4cb;
+}
+
+
+/* Admin section */
+
+/* font color */
+body {
+    @apply font-body
+}
+
+.bg-danger {
+    background-color: #E60013
+}
+
+.bg-secondary {
+    background-color: #F4F4F4;
+}
+
+.bg-secondary-100 {
+    background-color: #FFFAE9;
+}
+
+.bg-success-100 {
+    background-color: #DCFFD3;
+}
+
+.text-danger {
+    color: #E60013
+}
+
+.text-primary-700 {
+    color: #E95400
+}
+
+.text-primary-500 {
+    color: #F87BDF
+}
+
+/* Button */
+.btn {
+    @apply font-bold py-2 px-3 rounded-lg text-white
+}
+
+.btn-secondary {
+    @apply bg-white text-danger
+}
+
+.btn-file {
+    @apply font-bold py-2 px-6 rounded-lg text-white
+}
+
+.btn-submit {
+    @apply font-bold px-16 py-3 rounded-lg
+}
+
+.btn-danger {
+    @apply bg-danger btn
+}
+
+.btn-danger-submit {
+    @apply bg-danger btn-submit text-white
+}
+
+.btn-secondary-submit {
+    @apply bg-white btn-submit text-danger
+}
+
+.btn-primary-400 {
+    @apply bg-primary-400 px-2 py-2 text-white rounded-lg
+}
+
+.btn-primary-600 {
+    @apply bg-primary-600 px-3 py-2 text-white rounded-lg
+}
+
+/* Fill */
+.fill-primary {
+    fill: #E60013
+}
+
+/* textarea */
+.textarea {
+    @apply block mt-2.5 p-4 w-full text-sm text-gray-900 bg-white rounded-lg border border-neutral-300
+}
+
+/* Form Input */
+.input-text {
+    @apply block w-full border border-neutral-300 leading-tight rounded-lg h-12 p-4 mt-2 text-sm
+}
+
+/* max width */
+.max-w-80-percent {
+    max-width: 80%;
+}
+
+.max-w-57 {
+    max-width: 14.25rem;
+}
+
+.max-w-40 {
+    max-width: 40rem;
+}
+
+/* accent */
+.accent-danger {
+    accent-color :#E60013
+}
+
+/* Border Color */
+.border-primary-500 {
+    border-color: #F87BDF;
+}
+
+/* Invalid */
+.invalid-feedback {
+    @apply text-danger text-sm
 }
