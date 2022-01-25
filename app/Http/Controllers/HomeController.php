@@ -13,7 +13,7 @@ class HomeController extends Controller
         ->withCount(['auctionBidders'])
         ->orderBy('started_at', 'ASC')->get();
 
-        $disabledButton = true;
+        $disabledButton = false;
 
         return view('pages.home.index', compact('disabledButton'));
     }

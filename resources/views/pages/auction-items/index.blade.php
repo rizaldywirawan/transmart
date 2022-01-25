@@ -192,7 +192,6 @@
 
                     @if ($auctionItem->featuredAuctionAttachment)
                         <img src="{{ $auctionItem->featuredAuctionAttachment->file_path }}" alt="Barang Lelang" class="w-full rounded-t-xl h-72 object-cover">
-
                     @else
 
                         <img src="{{ asset('images/demo/iphone.jpg') }}" alt="Barang Lelang" class="w-full rounded-t-xl">
@@ -201,17 +200,46 @@
 
                     <div class="flex flex-col justify-start p-3 w-full">
                         <h1 class="text-base font-bold text-grayscale-600 mb-4">{{ $auctionItem->name }}</h1>
-                        <div id="auction-item-detail__description__title__status"
-                            class="w-max py-2.5 px-4 {{ $bidStatusBackgroundColor }} rounded flex items-center justify-center mb-4">
-                            <span id="auctio-item-detail__description__title__status__text"
-                                class="text-sm font-light {{ $bidStatusColor }}">
-                                {{ $bidStatusText }}
-                            </span>
+                        <div class="flex justify-between">
+                            <div id="auction-item-detail__description__title__status"
+                                class="w-max py-2.5 px-4 {{ $bidStatusBackgroundColor }} rounded flex items-center justify-center mb-4 mr-3">
+                                <span id="auctio-item-detail__description__title__status__text"
+                                    class="text-sm font-light {{ $bidStatusColor }}">
+                                    {{ $bidStatusText }}
+                                </span>
 
-                            @if ($auctionItem['bidding_status']['status'] === "live")
-                            <img id="auctio-item-detail__description__title__status__icon"
-                                src="{{ asset('images/icons/icon-fire.svg') }}" alt="Bid Live Now!" class="ml-3">
-                            @endif
+                                @if ($auctionItem['bidding_status']['status'] === "live")
+                                <img id="auctio-item-detail__description__title__status__icon"
+                                    src="{{ asset('images/icons/icon-fire.svg') }}" alt="Bid Live Now!" class="ml-3">
+                                @endif
+                            </div>
+                            <div id="auction-item__remaining-time"
+                                class="general-box-shadow p-3 rounded-xl w-max mb-4">
+
+                                @if ($auctionItem['bidding_status']['status'] === "over")
+
+                                    <h3 class="text-xs font-normal text-grayscale-400">Pemenang</h3>
+
+                                    @if ($auctionItem->won_by !== null)
+                                    <div class="flex items-center justify-center">
+                                        <h1 class="text-base font-bold text-grayscale-600 mr-3">
+                                            {{ $auctionItem->auctionBidWinner->profile->name }}</h1>
+                                        <img src="{{ asset('images/icons/icon-crown.svg') }}" alt="Auction Winner" class="h-6 w-6">
+                                    </div>
+                                    @elseif ($auctionItem->latestAuctionBidder !== null)
+                                    <div class="flex items-center justify-center">
+                                        <h1 class="text-xs font-bold text-grayscale-600 mr-3">
+                                            {{ $auctionItem->latestAuctionBidder->user->profile->name }}</h1>
+                                        <img src="{{ asset('images/icons/icon-crown.svg') }}" alt="Auction Winner" class="h-6 w-6">
+                                    </div>
+                                    @else
+                                    <div class="flex items-center justify-center">
+                                        <h1 class="text-xs font-bold text-grayscale-400 mr-3">Belum ditentukan</h1>
+                                        <img src="{{ asset('images/icons/icon-sad.svg') }}" alt="No Winner Yet" class="h-6 w-6">
+                                    </div>
+                                    @endif
+                                @endif
+                            </div>
                         </div>
                         <div class="flex justify-center items-center mb-4 bg-primary-100 rounded-lg p-2 outline outline-1 outline-primary-700 outline-dashed w-full">
                             <span class="h-5 w-5 flex items-center justify-center mr-3">
