@@ -57,12 +57,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/auction-items', [AuctionItemController::class, 'index']);
     Route::get('/auction-items/{auction_item}', [AuctionItemController::class, 'show']);
 
+    Route::post('/auction-items/{auction_item}/bids', [AuctionItemBidController::class, 'store']);
     Route::get('/auction-items/{auction_item}/bids', [AuctionItemBidController::class, 'index']);
 
     Route::post('/logout', [LoginController::class, 'destroy']);
 });
 
-Route::post('/auction-items/{auction_item}/bids', [AuctionItemBidController::class, 'store']);
 
 // Admin section
 

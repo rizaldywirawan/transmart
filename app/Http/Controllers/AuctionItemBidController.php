@@ -25,45 +25,36 @@ class AuctionItemBidController extends Controller
             ]
         ];
 
-        $increment = 10000;
-
         if ($auctionItem->latestAuctionBidder === null) {
-            $bidPriceInput = $increment;
+
+            if ($auctionItem->start_price >= $bidPriceInput) {
+                $code = 422;
+
+                $response = [
+                    'message' => [
+                        'title' => 'Penawaran gagal dilakukan.',
+                        'text' => 'Harga yang Anda ajukan dibawah penawaran awal.'
+                    ]
+                ];
+
+                return response($response, $code);
+            }
+
         } else {
-            $bidPriceInput = $auctionItem->latestAuctionBidder->bid_price + $increment;
+            if($auctionItem->latestAuctionBidder->bid_price >= $bidPriceInput) {
+
+                $code = 422;
+
+                $response = [
+                    'message' => [
+                        'title' => 'Penawaran gagal dilakukan.',
+                        'text' => 'Harga yang Anda ajukan dibawah penawaran tertinggi.'
+                    ]
+                ];
+
+                return response($response, $code);
+            }
         }
-
-
-        // if ($auctionItem->latestAuctionBidder === null) {
-
-        //     if ($auctionItem->start_price >= $bidPriceInput) {
-        //         $code = 422;
-
-        //         $response = [
-        //             'message' => [
-        //                 'title' => 'Penawaran gagal dilakukan.',
-        //                 'text' => 'Harga yang Anda ajukan dibawah penawaran awal.'
-        //             ]
-        //         ];
-
-        //         return response($response, $code);
-        //     }
-
-        // } else {
-        //     if($auctionItem->latestAuctionBidder->bid_price >= $bidPriceInput) {
-
-        //         $code = 422;
-
-        //         $response = [
-        //             'message' => [
-        //                 'title' => 'Penawaran gagal dilakukan.',
-        //                 'text' => 'Harga yang Anda ajukan dibawah penawaran tertinggi.'
-        //             ]
-        //         ];
-
-        //         return response($response, $code);
-        //     }
-        // }
 
         try {
 
