@@ -55,6 +55,11 @@ class Auction extends Model
         return $this->hasMany(AuctionAttachment::class);
     }
 
+    public function featuredAuctionAttachment()
+    {
+        return $this->hasOne(AuctionAttachment::class);
+    }
+
     public function auctionBidders()
     {
         return $this->hasMany(AuctionBidder::class)->orderBy('bid_price', 'DESC');

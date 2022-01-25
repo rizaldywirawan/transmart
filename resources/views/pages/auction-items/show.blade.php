@@ -55,7 +55,7 @@
             Deskripsi
         </div>
         <p id="auction-item-detail__description__narration" class="text-sm sm:text-md font-normal text-grayscale-500 mb-3">
-            {{ $auctionItem->description }}
+            {!! nl2br(e($auctionItem->description)) !!}
         </p>
         <div class="flex max-w-max items-center mb-4 bg-primary-100 rounded-lg p-2 outline outline-1 outline-primary-700 outline-dashed">
             <span class="h-5 w-5 flex items-center justify-center mr-3">

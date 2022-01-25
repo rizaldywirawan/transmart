@@ -12,8 +12,9 @@ class AuctionItemController extends Controller
 {
     public function index()
     {
-        $auctionItems = Auction::with(['auctionBidWinner', 'auctionBidders'])
+        $auctionItems = Auction::with(['auctionBidWinner', 'auctionBidders', 'featuredAuctionAttachment'])
         ->withCount(['auctionBidders'])
+        ->whereHas('featuredAuctionAttachment')
         ->orderBy('started_at', 'ASC')
         ->get();
 

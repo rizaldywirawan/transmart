@@ -9,8 +9,19 @@
         class="featured-auction-item-box-shadow p-6 rounded-2xl bg-white flex sm:flex-row flex-col -mt-24 sm:-mt-20 mb-6 sm:max-w-screen-xl w-full z-10 relative mb-12">
         <div class="flex justify-between sm:flex-row flex-col">
             <div class="flex sm:mr-6 sm:flex-row flex-col mb-6 sm:mb-0 sm:w-4/5">
-                <img src="{{ asset('images/demo/iphone.jpg') }}" alt="Auction Item Image"
+
+                @if ($sortedAuctionItems[0]->featuredAuctionAttachment)
+                    <img src="{{ $sortedAuctionItems[0]->featuredAuctionAttachment->file_path }}" alt="Auction Item Image"
+                        class="h-60 w-60 bg-background rounded-2xl mb-3 object-cover sm:mr-6 mr-0">
+
+                @else
+
+                    <img src="{{ asset('images/demo/iphone.jpg') }}" alt="Auction Item Image"
                     class="h-60 w-60 bg-background rounded-2xl mb-3 object-cover sm:mr-6 mr-0">
+
+
+                @endif
+
                 <div id="auction-item-detail__description" class="flex-grow">
                     <div id="auctio-item-detail__description__title" class="sm:flex items-center mb-3">
                         <h1 id="auction-item-detail__description__title__name" class="text-lg sm:text-2xl font-bold mr-0 sm:mr-3 mb-3 sm:mb-0">
@@ -23,7 +34,7 @@
                                 $bidStatusColor = "text-primary-500";
                             } elseif ($sortedAuctionItems[0]['bidding_status']['status'] === "upcoming") {
 
-                                $bidStatusText = 'Akan Datang';
+                                $bidStatusText = 'Mendatang';
                                 $bidStatusBackgroundColor = 'bg-peach-100';
                                 $bidStatusIcon = "";
                                 $bidStatusColor = "text-peach-200";
@@ -39,7 +50,7 @@
                         <div id="auction-item-detail__description__title__status"
                             class="w-max py-2.5 px-4 {{ $bidStatusBackgroundColor }} rounded flex items-center justify-center">
                             <span id="auctio-item-detail__description__title__status__text"
-                                class="text-sm font-light {{ $bidStatusColor }}">
+                                class="text-sm font-light {{ $bidStatusColor }} text-center">
                                 {{ $bidStatusText }}
                             </span>
 
@@ -53,7 +64,7 @@
                         Deskripsi
                     </div>
                     <p id="auction-item-detail__description__narration" class="text-sm sm:text-md font-normal text-grayscale-500 mb-3">
-                        {{ $sortedAuctionItems[0]->description }}
+                        {!! nl2br(e($sortedAuctionItems[0]->description)) !!}
                     </p>
                     <div class="flex max-w-max items-center mb-4 bg-primary-100 rounded-lg p-2 outline outline-1 outline-primary-700 outline-dashed">
                         <span class="h-5 w-5 flex items-center justify-center mr-3">
@@ -178,7 +189,16 @@
                 @endphp
 
                 <div class="bg-white rounded-xl auction-item">
-                    <img src="{{ asset('images/demo/iphone.jpg') }}" alt="Barang Lelang" class="w-full rounded-t-xl">
+
+                    @if ($auctionItem->featuredAuctionAttachment)
+                        <img src="{{ $auctionItem->featuredAuctionAttachment->file_path }}" alt="Barang Lelang" class="w-full rounded-t-xl">
+
+                    @else
+
+                        <img src="{{ asset('images/demo/iphone.jpg') }}" alt="Barang Lelang" class="w-full rounded-t-xl">
+
+                    @endif
+
                     <div class="p-3 flex flex-col">
                         <h1 class="text-base font-bold text-grayscale-600 mb-4">{{ $auctionItem->name }}</h1>
                         <div id="auction-item-detail__description__title__status"
