@@ -35,7 +35,7 @@ class AttendanceController extends Controller
 
 
         $businessUnits = BusinessUnit::with('company')
-        ->withCount(['participants'])
+        ->withCount(['participants', 'attendances'])
         ->get();
 
         return view('pages.attendances.index', compact('attendances', 'attendanceToday', 'attendanceByWebsite', 'attendanceByQRCode', 'totalUser', 'businessUnits'));

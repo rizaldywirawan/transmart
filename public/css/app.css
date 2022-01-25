@@ -36299,10 +36299,6 @@ body {
     margin-top: 1.5rem;
   }
 
-  .sm\:mr-0 {
-    margin-right: 0px;
-  }
-
   .sm\:block {
     display: block;
   }
@@ -36339,6 +36335,10 @@ body {
     width: 3rem;
   }
 
+  .sm\:w-1\/4 {
+    width: 25%;
+  }
+
   .sm\:w-4\/5 {
     width: 80%;
   }
@@ -36349,14 +36349,6 @@ body {
 
   .sm\:w-auto {
     width: auto;
-  }
-
-  .sm\:w-full {
-    width: 100%;
-  }
-
-  .sm\:w-1\/4 {
-    width: 25%;
   }
 
   .sm\:max-w-screen-xl {

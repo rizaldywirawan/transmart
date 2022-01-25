@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Ramsey\Uuid\Uuid;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 class BusinessUnit extends Model
 {
+    use HasRelationships;
     use HasFactory;
     use SoftDeletes;
 
@@ -34,5 +36,26 @@ class BusinessUnit extends Model
     public function participants()
     {
         return $this->hasMany(Profile::class);
+    }
+
+    public function attendances()
+    {
+        return $this->hasManyDeep(
+            'App\Models\Attendance',
+            [
+                'App\Models\Profile',
+                'App\Models\User'
+            ],
+            [
+                'business_unit_id',
+                'id',
+                'user_id'
+            ],
+            [
+                'id',
+                'user_id',
+                'id'
+            ]
+        );
     }
 }
