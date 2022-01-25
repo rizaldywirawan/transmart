@@ -49,7 +49,7 @@ class AuctionItemController extends Controller
 
     public function show($auctionItem)
     {
-        $auctionItem->load('auctionBidders', 'auctionBidWinner.profile');
+        $auctionItem->load('auctionBidders', 'auctionBidWinner.profile', 'featuredAuctionAttachment');
         $auctionItem->loadCount('auctionBidders');
 
         $auctionBidValues = AuctionBidValue::where('event_id', 'ad22aa5c-03cf-40ae-a589-ca1a0454532d')->orderBy('value', 'ASC')->get();

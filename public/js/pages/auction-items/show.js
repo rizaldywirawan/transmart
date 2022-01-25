@@ -20,7 +20,10 @@ var auctionItemLatestPrice = document.querySelector('#auction-item-latest-price'
 var auctionBidderLatestPrice = document.querySelector('#auction-bidder-latest-bid-price');
 var auctionBidderLatestName = document.querySelector('#auction-bidder-latest-bid-name');
 var auctionBidPrice = document.querySelector('#auction-item-bid-submission__bid-price');
-var auctionBidPricePlaceholder = document.querySelector('#auction-item-bid-submission__bid-price-placeholder'); // set the remaining time in separated format
+var auctionBidPricePlaceholder = document.querySelector('#auction-item-bid-submission__bid-price-placeholder');
+var bidPause = 0;
+var bidStack = [];
+var bidDecrement = document.querySelector('#bid-decrement'); // set the remaining time in separated format
 
 if (remainingSeconds !== 0) {
   var remainingTimeIntervalId = setInterval(function () {
@@ -55,34 +58,65 @@ Echo.join("auction-item.".concat(auctionItemDetailId)).listen('AuctionBidderPric
 
 if (bidSubmissionButton !== null) {
   bidSubmissionButton.addEventListener('click', function (el) {
+    bidSubmissionButton.setAttribute('disabled', true);
     var bidPrice = document.querySelector('#auction-item-bid-submission__bid-price');
-    axios({
-      method: 'post',
-      url: "".concat(window.location.pathname, "/bids"),
-      data: {
-        "bid-price": bidPrice.value
-      }
-    }).then(function (response) {
-      Swal.fire({
-        // title: error.response.data.message.title,
-        heightAuto: false,
-        text: response.data.message.text,
-        imageWidth: "7rem",
-        imageUrl: '/images/icons/icon-success.svg',
-        confirmButtonColor: '#F87BDF',
-        confirmButtonText: 'Semoga Beruntung'
+
+    if (bidPause === 0) {
+      axios({
+        method: 'post',
+        url: "".concat(window.location.pathname, "/bids"),
+        data: {
+          "bid-price": bidPrice.value
+        }
+      }).then(function (response) {
+        bidPause = 5;
+        Swal.fire({
+          // title: error.response.data.message.title,
+          heightAuto: false,
+          text: response.data.message.text,
+          imageWidth: "7rem",
+          imageUrl: '/images/icons/icon-success.svg',
+          confirmButtonColor: '#F87BDF',
+          confirmButtonText: 'Semoga Beruntung'
+        });
+        countbidPause();
+      })["catch"](function (error) {
+        Swal.fire({
+          // title: error.response.data.message.title,
+          heightAuto: false,
+          text: error.response.data.message.text,
+          imageWidth: "5rem",
+          imageUrl: '/images/icons/icon-fail.png',
+          confirmButtonColor: '#F87BDF',
+          confirmButtonText: 'Coba Kembali'
+        });
       });
-    })["catch"](function (error) {
+    } else {
       Swal.fire({
         // title: error.response.data.message.title,
         heightAuto: false,
-        text: error.response.data.message.text,
+        text: "Tunggu ".concat(bidPause, " detik setelah melakukan suatu bid."),
         imageWidth: "5rem",
         imageUrl: '/images/icons/icon-fail.png',
         confirmButtonColor: '#F87BDF',
-        confirmButtonText: 'Coba Kembali'
+        confirmButtonText: 'Mohon Tunggu'
       });
-    });
+    }
+
+    bidSubmissionButton.removeAttribute('disabled');
+  });
+}
+
+if (bidDecrement !== null) {
+  bidDecrement.addEventListener('click', function (el) {
+    if (bidStack.length) {
+      var popBidValue = bidStack.pop();
+      auctionBidPrice.value = parseInt(auctionBidPrice.value) - parseInt(popBidValue);
+      auctionBidPricePlaceholder.textContent = new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR'
+      }).format(auctionBidPrice.value);
+    }
   });
 } // Functions Section
 
@@ -103,8 +137,21 @@ function convertSecondsToRemainingTime(value) {
   };
 }
 
+function countbidPause() {
+  var countInterval = setInterval(function () {
+    if (bidPause === 0) {
+      clearInterval(countInterval);
+    } else {
+      bidPause--;
+    }
+
+    console.log(bidPause);
+  }, 1000);
+}
+
 document.body.addEventListener('click', function (el) {
   if (el.target.classList.contains('bid-value')) {
+    bidStack.push(el.target.dataset.value);
     auctionBidPrice.value = parseInt(auctionBidPrice.value) + parseInt(el.target.dataset.value);
     auctionBidPricePlaceholder.textContent = new Intl.NumberFormat('id-ID', {
       style: 'currency',

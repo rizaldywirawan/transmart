@@ -6,13 +6,20 @@
 <div id="auction-item-detail" data-id={{ $auctionItem->id }}
     class="featured-auction-item-box-shadow p-6 rounded-2xl bg-white flex sm:flex-row flex-col -mt-24 sm:-mt-20 mb-6 sm:max-w-screen-xl w-full z-10 relative">
     <div id="auction-item-detail__images" class="sm:mr-6 mb-6 sm:mb-0 mx-auto">
-        <img src="{{ asset('images/demo/iphone.jpg') }}" alt="Auction Item Image"
-            class="h-60 w-60 bg-background rounded-2xl mb-3 object-cover">
-        <div id="auction-item-detail__images__slides" class="flex">
+
+        @if ($auctionItem->featuredAuctionAttachment)
+            <img src="{{ $auctionItem->featuredAuctionAttachment->file_path }}" alt="Auction Item Image"
+                class="h-60 w-60 bg-background rounded-2xl mb-3 object-cover">
+        @else
+            <img src="{{ asset('images/demo/iphone.jpg') }}" alt="Auction Item Image"
+                class="h-60 w-60 bg-background rounded-2xl mb-3 object-cover">
+        @endif
+
+        {{-- <div id="auction-item-detail__images__slides" class="flex">
             <div class="h-16 w-16 bg-background rounded-2xl mr-3"></div>
             <div class="h-16 w-16 bg-background rounded-2xl mr-3"></div>
             <div class="h-16 w-16 bg-background rounded-2xl mr-3"></div>
-        </div>
+        </div> --}}
     </div>
     <div id="auction-item-detail__description" class="flex-grow">
         <div id="auctio-item-detail__description__title" class="sm:flex items-center mb-3">
@@ -209,8 +216,11 @@
         <div id="auction-item-bid-submission"
             class="h-64 w-full lg:w-1/2 fixed sm:static left-0 bottom-0 sm:left-auto sm:bottom-auto bg-white p-6 sm:p-0 mt-0 sm:mt-6 bid-column-box-shadow">
             <h3 class="text-base font-bold mb-3">Nominal Penawaran</h3>
-            <input type="hidden" name="bid-price" id="auction-item-bid-submission__bid-price" placeholder="0" value="0" disabled>
-            <div id="auction-item-bid-submission__bid-price-placeholder" class="px-4 py-3 text-sm font-normal rounded-lg w-full border border-grayscale-300 mb-3">Rp 0</div>
+            <div class="flex">
+                <input type="hidden" name="bid-price" id="auction-item-bid-submission__bid-price" class="hidden" placeholder="0" value="{{ $auctionItem->latestAuctionBidder != null ? $auctionItem->latestAuctionBidder->bid_price : 0 }}" disabled>
+                <div id="auction-item-bid-submission__bid-price-placeholder" class="h-12 px-4 py-3 text-sm font-normal rounded-lg w-full border border-grayscale-300 mb-3 items-center flex mr-2">Rp {{ $auctionItem->latestAuctionBidder != null ? $auctionItem->latestAuctionBidder->formatted_bid_price : 0 }}</div>
+                <button id="bid-decrement" class="h-12 w-12 px-2 rounded-xl bg-primary-500 text-3xl font-bold text-white shrink-0 sm:w-12">-</button>
+            </div>
             <div class="flex overflow-x-scroll mb-3">
                 @foreach ($auctionBidValues as $bidValue)
                     <button class="bid-value p-2 rounded bg-primary-400 text-white text-sm font-bold shrink-0 mr-3" data-value={{ $bidValue->value }}>Rp {{ $bidValue->formatted_bid_value }}</button>
