@@ -52,6 +52,9 @@ Echo.join(`auction-item.${auctionItemDetailId}`)
         auctionBidderLatestPrice.classList.remove('hidden')
         auctionBidderLatestName.textContent = `oleh ${e.auctionBidder.user.profile.name}`
 
+        auctionBidPricePlaceholder.textContent = `Rp ${e.auctionBidder.formatted_bid_price}`
+        auctionBidPrice.textContent = `Rp ${e.auctionBidder.bid_price}`
+
         if (emptyBidHistory !== null) {
             emptyBidHistory.remove()
         }

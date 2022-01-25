@@ -46,6 +46,8 @@ Echo.join("auction-item.".concat(auctionItemDetailId)).listen('AuctionBidderPric
   auctionBidderLatestPrice.textContent = "Rp ".concat(e.auctionBidder.formatted_bid_price);
   auctionBidderLatestPrice.classList.remove('hidden');
   auctionBidderLatestName.textContent = "oleh ".concat(e.auctionBidder.user.profile.name);
+  auctionBidPricePlaceholder.textContent = "Rp ".concat(e.auctionBidder.formatted_bid_price);
+  auctionBidPrice.textContent = "Rp ".concat(e.auctionBidder.bid_price);
 
   if (emptyBidHistory !== null) {
     emptyBidHistory.remove();
