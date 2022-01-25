@@ -188,10 +188,10 @@
                     }
                 @endphp
 
-                <div class="bg-white rounded-xl auction-item">
+                <div class="auction-item bg-white flex flex-col items-center justify-between rounded-xl">
 
                     @if ($auctionItem->featuredAuctionAttachment)
-                        <img src="{{ $auctionItem->featuredAuctionAttachment->file_path }}" alt="Barang Lelang" class="w-full rounded-t-xl">
+                        <img src="{{ $auctionItem->featuredAuctionAttachment->file_path }}" alt="Barang Lelang" class="w-full rounded-t-xl h-72 object-cover">
 
                     @else
 
@@ -199,7 +199,7 @@
 
                     @endif
 
-                    <div class="p-3 flex flex-col">
+                    <div class="flex flex-col justify-start p-3 w-full">
                         <h1 class="text-base font-bold text-grayscale-600 mb-4">{{ $auctionItem->name }}</h1>
                         <div id="auction-item-detail__description__title__status"
                             class="w-max py-2.5 px-4 {{ $bidStatusBackgroundColor }} rounded flex items-center justify-center mb-4">
